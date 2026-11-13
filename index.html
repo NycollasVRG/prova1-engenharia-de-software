@@ -1,0 +1,2572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engenharia de Software Moderna — Guia Visual (Caps. 1 a 4)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Definições compartilhadas de marcadores para diagramas SVG UML -->
+  <svg width="0" height="0" style="position:absolute;visibility:hidden" aria-hidden="true">
+    <defs>
+      <marker id="uml-arrow-open" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+        <path d="M2,2 L10,6 L2,10" fill="none" stroke="var(--text)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+      </marker>
+      <marker id="uml-arrow-solid" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+        <path d="M2,2 L10,6 L2,10 z" fill="var(--text)" />
+      </marker>
+      <marker id="uml-triangle-hollow" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+        <path d="M2,2 L12,7 L2,12 z" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" stroke-linejoin="round" />
+      </marker>
+      <marker id="uml-diamond-filled" viewBox="0 0 18 12" refX="2" refY="6" markerWidth="14" markerHeight="10" orient="auto">
+        <path d="M2,6 L9,2 L16,6 L9,10 z" fill="var(--text)" stroke="var(--text)" stroke-width="1.2" />
+      </marker>
+      <marker id="flow-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M2,2 L10,6 L2,10 z" fill="var(--cap4)" />
+      </marker>
+      <marker id="dag-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+        <path d="M2,2 L10,6 L2,10 z" fill="var(--cap2)" />
+      </marker>
+    </defs>
+  </svg>
+
+  <!-- Barra superior para telas menores -->
+  <header class="mobile-topbar">
+    <button id="mobileMenuBtn" class="menu-btn" type="button" aria-label="Abrir sumário">☰ Sumário</button>
+    <span style="font-weight:700;font-size:0.92rem;">Eng. de Software Moderna</span>
+    <span style="font-size:0.78rem;color:var(--text-soft);">Caps. 1–4</span>
+  </header>
+
+  <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+  <div class="app-shell">
+    <!-- ====================================================================
+         SIDEBAR / SUMÁRIO INTERATIVO
+         ==================================================================== -->
+    <aside id="sidebar" class="sidebar" aria-label="Sumário e controles">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">ESM</div>
+          <div>
+            <div class="brand-title">Engenharia de Software Moderna</div>
+            <div class="brand-sub">Marco Tulio Valente · Caps. 1–4</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-controls">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input id="searchInput" class="search-input" type="search" placeholder="Buscar questão, termo ou conceito..." autocomplete="off" />
+          <button id="searchClearBtn" class="search-clear" type="button" title="Limpar busca">×</button>
+        </div>
+        <div class="toolbar-actions">
+          <button id="themeToggleBtn" class="btn-tool" type="button">🌙 Tema Escuro</button>
+          <button id="studyModeBtn" class="btn-tool" type="button">🧠 Modo Estudo</button>
+        </div>
+      </div>
+
+      <nav class="toc-scroll">
+        <!-- Capítulo 1 -->
+        <div class="toc-group">
+          <button class="toc-group-header" type="button">
+            <span class="toc-group-title"><span class="toc-dot" style="background:var(--cap1)"></span>Cap. 1: Introdução (11)</span>
+            <span class="toc-chevron">▼</span>
+          </button>
+          <ul class="toc-list">
+            <li><a class="toc-link" href="#c1-q1">1. Dificuldade acidental</a></li>
+            <li><a class="toc-link" href="#c1-q2">2. RF vs. RNF</a></li>
+            <li><a class="toc-link" href="#c1-q3">3. Verificação e Validação</a></li>
+            <li><a class="toc-link" href="#c1-q4">4. Limitação dos testes (Dijkstra)</a></li>
+            <li><a class="toc-link" href="#c1-q5">5. Teste exaustivo (64 bits)</a></li>
+            <li><a class="toc-link" href="#c1-q6">6. Origem do Waterfall</a></li>
+            <li><a class="toc-link" href="#c1-q7">7. Custo de manutenção (80%+)</a></li>
+            <li><a class="toc-link" href="#c1-q8">8. Refactoring e comportamento</a></li>
+            <li><a class="toc-link" href="#c1-q9">9. Sistemas A e B</a></li>
+            <li><a class="toc-link" href="#c1-q10">10. Sistemas C (Casuais)</a></li>
+            <li><a class="toc-link" href="#c1-q11">11. Ética (Caso Volkswagen)</a></li>
+          </ul>
+        </div>
+
+        <!-- Capítulo 2 -->
+        <div class="toc-group">
+          <button class="toc-group-header" type="button">
+            <span class="toc-group-title"><span class="toc-dot" style="background:var(--cap2)"></span>Cap. 2: Processos (19)</span>
+            <span class="toc-chevron">▼</span>
+          </button>
+          <ul class="toc-list">
+            <li><a class="toc-link" href="#c2-q1">1. Contratos segundo XP</a></li>
+            <li><a class="toc-link" href="#c2-q2">2. Diferenças XP vs. Scrum</a></li>
+            <li><a class="toc-link" href="#c2-q3">3. Cross-funcionais e Auto-org.</a></li>
+            <li><a class="toc-link" href="#c2-q4">4. Topo vs. Fundo do Backlog</a></li>
+            <li><a class="toc-link" href="#c2-q5">5. Story Points</a></li>
+            <li><a class="toc-link" href="#c2-q6">6. Sprint Review vs. Retrospectiva</a></li>
+            <li><a class="toc-link" href="#c2-q7">7. Cancelamento de Sprint</a></li>
+            <li><a class="toc-link" href="#c2-q8">8. História e Tarefas (Delivery)</a></li>
+            <li><a class="toc-link" href="#c2-q9">9. Velocidade entre times (24 vs 16)</a></li>
+            <li><a class="toc-link" href="#c2-q10">10. Scrum vs. Kanban</a></li>
+            <li><a class="toc-link" href="#c2-q11">11. Quadro Scrum vs. Kanban</a></li>
+            <li><a class="toc-link" href="#c2-q12">12. Limite WIP nas subcolunas</a></li>
+            <li><a class="toc-link" href="#c2-q13">13. Gargalo no Quadro Kanban</a></li>
+            <li><a class="toc-link" href="#c2-q14">14. Margem +50% (Lei de Little)</a></li>
+            <li><a class="toc-link" href="#c2-q15">15. Riscos, Fluxo e Qualidade</a></li>
+            <li><a class="toc-link" href="#c2-q16">16. Cálculo WIP (Lei de Little)</a></li>
+            <li><a class="toc-link" href="#c2-q17">17. Curva exponencial de custos</a></li>
+            <li><a class="toc-link" href="#c2-q18">18. (1) Frequência de releases</a></li>
+            <li><a class="toc-link" href="#c2-q19">19. (2) UP e Espiral vs. Ágil/Waterfall</a></li>
+          </ul>
+        </div>
+
+        <!-- Capítulo 3 -->
+        <div class="toc-group">
+          <button class="toc-group-header" type="button">
+            <span class="toc-group-title"><span class="toc-dot" style="background:var(--cap3)"></span>Cap. 3: Requisitos (15)</span>
+            <span class="toc-chevron">▼</span>
+          </button>
+          <ul class="toc-list">
+            <li><a class="toc-link" href="#c3-q1">1. POSCOMP 2010 (V ou F)</a></li>
+            <li><a class="toc-link" href="#c3-q2">2. Cinco técnicas de elicitação</a></li>
+            <li><a class="toc-link" href="#c3-q3">3. Os 3C's da história de usuário</a></li>
+            <li><a class="toc-link" href="#c3-q4">4. Histórias Rede Social</a></li>
+            <li><a class="toc-link" href="#c3-q5">5. Cinco Anti-patterns</a></li>
+            <li><a class="toc-link" href="#c3-q6">6. Exemplo de História Épica</a></li>
+            <li><a class="toc-link" href="#c3-q7">7. Significado de Gold Plating</a></li>
+            <li><a class="toc-link" href="#c3-q8">8. Caso de Uso (Biblioteca)</a></li>
+            <li><a class="toc-link" href="#c3-q9">9. Extensões "Comprar Livro"</a></li>
+            <li><a class="toc-link" href="#c3-q10">10. (8) Sistemas por técnica</a></li>
+            <li><a class="toc-link" href="#c3-q11">11. (9) MVP vs. 1ª Iteração Ágil</a></li>
+            <li><a class="toc-link" href="#c3-q12">12. (10) Cinco tipos de pivôs</a></li>
+            <li><a class="toc-link" href="#c3-q13">13. (11) MVP da EasyTaxi</a></li>
+            <li><a class="toc-link" href="#c3-q14">14. (12) MVP Streaming 2008</a></li>
+            <li><a class="toc-link" href="#c3-q15">15. (1) Teste A/B E-commerce</a></li>
+          </ul>
+        </div>
+
+        <!-- Capítulo 4 -->
+        <div class="toc-group">
+          <button class="toc-group-header" type="button">
+            <span class="toc-group-title"><span class="toc-dot" style="background:var(--cap4)"></span>Cap. 4: Modelos (8)</span>
+            <span class="toc-chevron">▼</span>
+          </button>
+          <ul class="toc-list">
+            <li><a class="toc-link" href="#c4-q1">1. Três usos de UML (Fowler)</a></li>
+            <li><a class="toc-link" href="#c4-q2">2. Eng. Reversa e Avante</a></li>
+            <li><a class="toc-link" href="#c4-q3">3. Cenários Diagramas de Classes</a></li>
+            <li><a class="toc-link" href="#c4-q4">4. ENADE 2014 (Revista/Edição)</a></li>
+            <li><a class="toc-link" href="#c4-q5">5. Java HelloWorldSwing UML</a></li>
+            <li><a class="toc-link" href="#c4-q6">6. (1) Diagrama de Sequência</a></li>
+            <li><a class="toc-link" href="#c4-q7">7. (1) Nodo Merge vs. Join</a></li>
+            <li><a class="toc-link" href="#c4-q8">8. (2) Erro Decisão + Join</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ====================================================================
+         CONTEÚDO PRINCIPAL
+         ==================================================================== -->
+    <main class="main-content">
+      <div class="content-container">
+        <!-- Hero -->
+        <section class="hero">
+          <span class="hero-eyebrow">Guia Visual de Estudos</span>
+          <h1>Engenharia de Software Moderna — Exercícios Resolvidos</h1>
+          <p>
+            Enunciados completos e respostas detalhadas para os exercícios dos <strong>Capítulos 1 a 4</strong> da obra de
+            <strong>Marco Tulio Valente</strong>, mantendo a numeração exata do livro com diagramas UML em SVG,
+            quadros comparativos, cálculos destacados, wireframes visuais e modo de estudo interativo.
+          </p>
+
+          <div class="hero-stats">
+            <span class="stat-pill">📚 <strong>4</strong> Capítulos</span>
+            <span class="stat-pill">📝 <strong>53</strong> Questões com Enunciado Completo</span>
+            <span class="stat-pill">📐 <strong>Diagramas UML</strong> em SVG</span>
+            <span class="stat-pill">🧠 <strong>Modo Estudo</strong> (Ocultar/Revelar)</span>
+          </div>
+
+          <div class="filter-bar">
+            <div class="filter-pills" role="group" aria-label="Filtrar por capítulo">
+              <button class="filter-pill active" data-filter="all" type="button">Todos os Capítulos</button>
+              <button class="filter-pill" data-filter="1" type="button">Cap. 1 · Introdução</button>
+              <button class="filter-pill" data-filter="2" type="button">Cap. 2 · Processos</button>
+              <button class="filter-pill" data-filter="3" type="button">Cap. 3 · Requisitos</button>
+              <button class="filter-pill" data-filter="4" type="button">Cap. 4 · Modelos</button>
+            </div>
+            <span id="resultsCounter" class="results-counter">Exibindo todas as 53 questões</span>
+          </div>
+        </section>
+
+        <div id="emptyState" class="empty-state">
+          <p>Nenhuma questão encontrada para o filtro ou termo buscado.</p>
+          <button id="resetFiltersBtn" class="btn-tool" type="button">Limpar filtros</button>
+        </div>
+
+        <!-- ================================================================
+             CAPÍTULO 1: INTRODUÇÃO
+             ================================================================ -->
+        <section class="chapter-section" data-chapter="1" id="cap-1">
+          <div class="chapter-banner">
+            <div>
+              <span class="chapter-tag">Capítulo 1</span>
+              <h2>Introdução</h2>
+            </div>
+            <span class="chapter-count">11 questões</span>
+          </div>
+
+          <!-- Cap 1 - Q1 -->
+          <article class="question-card" id="c1-q1">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">1</span>
+                <div>
+                  <h3>Exemplo de dificuldade acidental</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Segundo Frederick Brooks, desenvolvimento de software enfrenta dificuldades essenciais (para as quais não há bala de prata) e acidentais (para as quais existe uma solução melhor). Dê um exemplo de dificuldade acidental que já tenha experimentado ao desenvolver programas, mesmo que pequenos. <em>Sugestão: elas podem estar relacionadas a ferramentas que tenha usado, como compiladores, IDEs, bancos de dados, sistemas operacionais, etc.</em></p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout">
+                <span class="callout-title">Contexto</span>
+                Dificuldades acidentais decorrem de limitações das ferramentas, linguagens ou ambientes tecnológicos utilizados, e não da complexidade intrínseca da regra de negócio (essencial).
+              </div>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">⚙️ Exemplo Prático 1 — Ambiente e Build</div>
+                  <p>Gastar horas configurando variáveis de ambiente, versões do JDK ou dependências conflitantes no Maven/Gradle ou npm antes de conseguir compilar um projeto simples.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🧱 Exemplo Prático 2 — Código Boilerplate</div>
+                  <p>Escrever dezenas de linhas de código repetitivo (boilerplate), como getters, setters e mapeamentos manuais de banco de dados (JDBC puro), antes da adoção de frameworks ORM ou anotações modernas.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q2 -->
+          <article class="question-card" id="c1-q2">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">2</span>
+                <div>
+                  <h3>Requisitos funcionais vs. não-funcionais</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Diferencie requisitos funcionais de requisitos não-funcionais.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card info">
+                  <div class="mini-card-title">📋 Requisitos Funcionais (RF)</div>
+                  <p>Definem <strong>o que o sistema deve fazer</strong>, ou seja, as funcionalidades, serviços e regras de negócio oferecidas aos usuários.</p>
+                  <p style="margin-top:8px;"><em>Ex:</em> "O sistema deve emitir um comprovante em PDF após a transferência bancária".</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">⚡ Requisitos Não-Funcionais (RNF)</div>
+                  <p>Definem <strong>como o sistema deve se comportar</strong>, estabelecendo restrições e atributos de qualidade como desempenho, segurança, disponibilidade, usabilidade e portabilidade.</p>
+                  <p style="margin-top:8px;"><em>Ex:</em> "O sistema deve processar a transferência em menos de 2 segundos e criptografar os dados via TLS 1.3".</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q3 -->
+          <article class="question-card" id="c1-q3">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">3</span>
+                <div>
+                  <h3>Testes como verificação e validação</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Explique por que testes podem ser considerados tanto uma atividade de verificação como de validação de software. Qual tipo de teste é mais adequado se o objetivo for verificação? Qual tipo de teste é mais adequado se o objetivo for validar um sistema de software?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p><strong>Por que abrangem ambos:</strong> Os testes avaliam tanto a conformidade técnica com a especificação quanto a utilidade real para o cliente.</p>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🔍 Verificação</div>
+                  <p><strong>"Estamos construindo o sistema corretamente?"</strong></p>
+                  <p style="margin-top:6px;">Avalia se o software atende à especificação técnica definida. Os mais adequados são os <strong>testes de unidade</strong>, <strong>testes de integração</strong> e <strong>testes de sistema</strong>.</p>
+                </div>
+                <div class="mini-card success">
+                  <div class="mini-card-title">🎯 Validação</div>
+                  <p><strong>"Estamos construindo o sistema correto?"</strong></p>
+                  <p style="margin-top:6px;">Avalia se o software atende às reais necessidades e expectativas do cliente/usuário final. O mais adequado é o <strong>teste de aceitação</strong> (ou teste alfa/beta realizado com o usuário).</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q4 -->
+          <article class="question-card" id="c1-q4">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">4</span>
+                <div>
+                  <h3>Limitação dos testes na prova de ausência de bugs</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Por que testes não conseguem provar a <em>ausência</em> de bugs?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <blockquote class="quote-box">
+                "Testes de software mostram a presença de bugs, mas nunca a sua ausência."
+                <span class="quote-author">— Edsger Dijkstra</span>
+              </blockquote>
+              <p>
+                Isso ocorre porque o espaço de entradas possíveis, estados internos e fluxos de execução de qualquer sistema não trivial é praticamente infinito. Como só é possível executar um subconjunto finito de casos de teste em tempo hábil, não há garantia matemática de que uma combinação não testada não provocará uma falha.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q5 -->
+          <article class="question-card" id="c1-q5">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">5</span>
+                <div>
+                  <h3>Cálculo do teste exaustivo (64 bits)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha um programa que tenha uma única entrada: um inteiro de 64 bits. Em um teste exaustivo, temos que testar esse programa com todos os possíveis inteiros (logo, 2<sup>64</sup>). Se cada teste levar 1 nanossegundo (10<sup>-9</sup> segundos), quanto tempo levará esse teste exaustivo?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="formula-grid">
+                <div class="step-calc">
+                  <div class="step-calc-label">1. Total de entradas</div>
+                  <div class="step-calc-val">2<sup>64</sup> &approx; 1,84467 &times; 10<sup>19</sup> testes</div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">2. Tempo por teste</div>
+                  <div class="step-calc-val">1 ns = 10<sup>-9</sup> segundos</div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">3. Tempo total (segundos)</div>
+                  <div class="step-calc-val">1,84467 &times; 10<sup>19</sup> &times; 10<sup>-9</sup> = 1,84467 &times; 10<sup>10</sup> s</div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">4. Segundos por ano</div>
+                  <div class="step-calc-val">60 &times; 60 &times; 24 &times; 365 = 31.536.000 s/ano</div>
+                </div>
+              </div>
+              <div class="highlight-result">
+                ⏳ Conversão para anos: dividindo por 31.536.000 s/ano, o teste exaustivo levaria aproximadamente <strong>584,9 anos</strong>.
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q6 -->
+          <article class="question-card" id="c1-q6">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">6</span>
+                <div>
+                  <h3>Origem histórica dos processos sequenciais (Waterfall)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Se considerarmos o contexto histórico, por que foi natural que os primeiros processos de desenvolvimento de software tivessem características sequenciais e fossem baseados em planejamento e documentação detalhados?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                Nos primórdios da computação (décadas de 1960 e 1970), a Engenharia de Software buscou inspiração nas engenharias tradicionais (Civil, Mecânica, Elétrica), nas quais é inviável alterar a fundação de um prédio ou uma ponte após o início da construção física.
+              </p>
+              <p>
+                Além disso, os grandes projetos da época eram majoritariamente governamentais, militares e aeroespaciais, com requisitos rígidos definidos em contratos formais e foco absoluto em previsibilidade e documentação prévia.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q7 -->
+          <article class="question-card" id="c1-q7">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">7</span>
+                <div>
+                  <h3>Alto custo de manutenção e evolução (80%+)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Alguns estudos mostram que os custos com manutenção e evolução podem alcançar 80% ou mais dos custos totais alocados a um sistema de software, durante todo o seu ciclo de vida. Explique por que esse valor é tão alto.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                O desenvolvimento inicial dura apenas alguns meses ou poucos anos, enquanto a fase de operação de um sistema bem-sucedido pode durar décadas.
+              </p>
+              <div class="ratio-bar-wrap">
+                <div class="ratio-bar" aria-label="Proporção de custos: até 20% desenvolvimento inicial e mais de 80% manutenção">
+                  <div class="ratio-seg-dev">~20% Inicial</div>
+                  <div class="ratio-seg-maint">80%+ Manutenção e Evolução (Décadas)</div>
+                </div>
+              </div>
+              <p>Durante essa longa vida útil, o software precisa constantemente:</p>
+              <div class="compare-grid cols-3">
+                <div class="mini-card">
+                  <div class="mini-card-title">🛠️ Corretiva</div>
+                  <p>Corrigir defeitos descobertos em produção.</p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">🔄 Adaptativa</div>
+                  <p>Adaptar-se a novas leis, regras fiscais, hardwares ou sistemas operacionais.</p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">🚀 Evolutiva</div>
+                  <p>Incorporar novas funcionalidades solicitadas pelos usuários para manter o produto competitivo.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q8 -->
+          <article class="question-card" id="c1-q8">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">8</span>
+                <div>
+                  <h3>Preservação de comportamento no Refactoring</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Refactoring é uma transformação de código que preserva comportamento. Qual o significado da expressão <em>preservar comportamento</em>? Na prática, qual restrição ela impõe a uma operação de refactoring?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🧩 Significado</div>
+                  <p>Significa que a estrutura interna do código-fonte é aprimorada (para melhorar legibilidade, projeto e manutenibilidade), mas a funcionalidade observável externamente permanece idêntica: para qualquer entrada <code>X</code>, o sistema continua produzindo exatamente a mesma saída <code>Y</code>.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🛡️ Restrição prática</div>
+                  <p>Impõe que não se deve alterar a lógica de negócio ou adicionar novas funcionalidades simultaneamente a uma refatoração, além de exigir uma bateria sólida de testes automatizados (regressão) que deve passar integralmente antes e depois da transformação.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q9 -->
+          <article class="question-card" id="c1-q9">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">9</span>
+                <div>
+                  <h3>Exemplos de sistemas A (Acute/Críticos) e B (Business/Comerciais)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Dê exemplos de sistemas A (<em>Acute</em>, ou críticos) e B (<em>Business</em>, ou comerciais) com os quais já tenha interagido.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card danger">
+                  <div class="mini-card-title">🚨 Sistemas A (Críticos / Acute)</div>
+                  <p>Sistemas cujo fracasso pode causar perda de vidas humanas ou prejuízos materiais catastróficos.</p>
+                  <ul>
+                    <li>Software de controle de voo de aeronaves (Fly-by-Wire)</li>
+                    <li>Controle de freios ABS automotivos</li>
+                    <li>Bombas de infusão de insulina hospitalares</li>
+                  </ul>
+                </div>
+                <div class="mini-card info">
+                  <div class="mini-card-title">💼 Sistemas B (Comerciais / Business)</div>
+                  <p>Sistemas corporativos voltados à gestão de negócios.</p>
+                  <ul>
+                    <li>Aplicativos de Internet Banking</li>
+                    <li>Sistemas ERP (SAP, TOTVS)</li>
+                    <li>Plataformas de comércio eletrônico e sistemas acadêmicos universitários</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q10 -->
+          <article class="question-card" id="c1-q10">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">10</span>
+                <div>
+                  <h3>Exemplos de sistemas C (Casuais)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Dê exemplos de sistemas C (casuais) que você já tenha desenvolvido.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>Sistemas pequenos, pessoais ou experimentais, com poucos usuários e baixa criticidade:</p>
+              <ul>
+                <li>Scripts pessoais em Python ou Bash para automatizar backup de pastas ou renomear arquivos em lote.</li>
+                <li>Portfólio pessoal estático ou blog simples.</li>
+                <li>Trabalhos práticos acadêmicos (ex: jogo da velha, agenda telefônica em memória ou calculadora).</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Cap 1 - Q11 -->
+          <article class="question-card" id="c1-q11">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">11</span>
+                <div>
+                  <h3>Ética profissional (Caso Volkswagen)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Em 2015, descobriu-se que mais de 11 milhões de carros da Volkswagen emitiam poluentes dentro das normas legais apenas quando eles estavam sendo testados em um laboratório de certificação. Fora do laboratório, os carros emitiam mais poluentes, para melhorar o desempenho. Ou seja, o código incluía uma estrutura de decisão como a seguinte (meramente ilustrativa, para fins deste exercício):</p>
+                <div class="prompt-code">if "Carro sendo testado em um laboratório"
+   "Emita poluentes dentro das normas"
+else 
+   "Emita poluentes fora das normas"</div>
+                <p style="margin-top:8px;">O que você faria se seu chefe pedisse para escrever um <em>if</em> como o acima?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout danger">
+                <span class="callout-title">Decisão: Recusaria a implementação da rotina.</span>
+                De acordo com o Código de Ética da Engenharia de Software (ACM/IEEE), o engenheiro de software tem o dever primordial de atuar em prol do interesse público, protegendo a saúde, a segurança e o meio ambiente.
+              </div>
+              <p>
+                Implementar uma fraude deliberada (<em>defeat device</em>) configura ato ilegal e antiético. A conduta correta envolve alertar os superiores sobre a ilegalidade da solicitação, documentar a recusa formalmente e, caso a empresa insista na prática ilícita, recorrer aos canais de compliance/denúncia interna ou às autoridades reguladoras competentes (<em>whistleblowing</em>).
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             CAPÍTULO 2: PROCESSOS
+             ================================================================ -->
+        <section class="chapter-section" data-chapter="2" id="cap-2">
+          <div class="chapter-banner">
+            <div>
+              <span class="chapter-tag">Capítulo 2</span>
+              <h2>Processos</h2>
+            </div>
+            <span class="chapter-count">19 questões</span>
+          </div>
+
+          <!-- Cap 2 - Q1 -->
+          <article class="question-card" id="c2-q1">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">1</span>
+                <div>
+                  <h3>Contratos de desenvolvimento segundo XP</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Como XP preconiza que devem ser os contratos de desenvolvimento de software?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                A Programação Extrema (XP) rejeita contratos de escopo, prazo e preço totalmente fixos definidos no início do projeto. Em vez disso, preconiza <strong>contratos de escopo variável (ou negociável)</strong>: fixa-se o tempo, o custo e a qualidade (tamanho da equipe e duração das iterações), mas as funcionalidades entregues são priorizadas e ajustadas continuamente a cada iteração em conjunto com o cliente, maximizando o valor entregue.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q2 -->
+          <article class="question-card" id="c2-q2">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">2</span>
+                <div>
+                  <h3>Diferenças entre XP e Scrum</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Quais as diferenças entre XP e Scrum?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="styled-table-wrap">
+                <table class="styled-table">
+                  <thead>
+                    <tr>
+                      <th>Critério</th>
+                      <th>Scrum</th>
+                      <th>XP (Extreme Programming)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Foco</strong></td>
+                      <td>Framework focado no gerenciamento de projetos e organização da equipe (papéis, eventos e artefatos), não prescrevendo práticas técnicas de codificação.</td>
+                      <td>Foca intensamente em boas práticas técnicas de engenharia de software, como Desenvolvimento Dirigido por Testes (TDD), Programação em Pares, Integração Contínua, Refatoração e Projeto Simples.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Iterações</strong></td>
+                      <td>Sprints costumam durar de <strong>2 a 4 semanas</strong>.</td>
+                      <td>Iterações tradicionalmente são mais curtas (<strong>1 a 2 semanas</strong>) e admitem mudanças em histórias ainda não iniciadas dentro da própria iteração com maior flexibilidade.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q3 -->
+          <article class="question-card" id="c2-q3">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">3</span>
+                <div>
+                  <h3>Times Cross-funcionais e Auto-organizáveis</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Times Scrum são ditos cross-funcionais e auto-organizáveis. Por quê? Defina esses termos.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🧩 Cross-funcionais (Multifuncionais)</div>
+                  <p>A equipe possui internamente todas as competências necessárias para transformar um requisito em software pronto (análise, design, programação, banco de dados, testes e deploy), sem depender de setores externos.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🤝 Auto-organizáveis</div>
+                  <p>A própria equipe decide internamente como realizar o trabalho e dividir as tarefas da Sprint, em vez de ser dirigida por um gerente de projetos tradicional que atribui tarefas individualmente.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q4 -->
+          <article class="question-card" id="c2-q4">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">4</span>
+                <div>
+                  <h3>Topo vs. Fundo do Backlog do Produto</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Em Scrum, qual a diferença entre as histórias do «topo» e do «fundo» do Backlog do Produto?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="backlog-stack">
+                <div class="backlog-tier top">
+                  <strong>▲ Topo do Backlog:</strong> Contém histórias de alta prioridade, bem detalhadas, refinadas e pequenas o suficiente para serem implementadas imediatamente nas próximas Sprints.
+                </div>
+                <div class="backlog-tier bottom">
+                  <strong>▼ Fundo do Backlog:</strong> Contém histórias de baixa prioridade, ainda vagas, grandes (épicos) e pouco detalhadas, que só serão refinadas caso ganhem relevância no futuro.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q5 -->
+          <article class="question-card" id="c2-q5">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">5</span>
+                <div>
+                  <h3>Story Points</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>O que são e para que servem story points?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                São uma <strong>unidade de medida relativa e abstrata</strong> usada em métodos ágeis para estimar o esforço total necessário para implementar uma história de usuário (considerando volume de trabalho, complexidade técnica e incertezas/riscos).
+              </p>
+              <p>
+                Servem para calcular a velocidade média do time por Sprint e permitir o planejamento de capacidade das iterações futuras sem a pressão imprecisa de estimativas em horas exatas.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q6 -->
+          <article class="question-card" id="c2-q6">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">6</span>
+                <div>
+                  <h3>Sprint Review vs. Retrospectiva</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Em Scrum, qual a diferença entre uma sprint review e uma retrospectiva?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card info">
+                  <div class="mini-card-title">📦 Sprint Review (Revisão)</div>
+                  <p><strong>Foca no produto.</strong> O time apresenta o incremento de software funcionando aos stakeholders e ao Product Owner para coletar feedback e adaptar o Backlog do Produto.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">🔁 Sprint Retrospective (Retrospectiva)</div>
+                  <p><strong>Foca no processo e nas pessoas.</strong> É uma reunião interna da equipe para inspecionar como a última Sprint transcorreu em relação a práticas, ferramentas e comunicação, definindo melhorias para a próxima Sprint.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q7 -->
+          <article class="question-card" id="c2-q7">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">7</span>
+                <div>
+                  <h3>Cancelamento de Sprint</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Um sprint pode ser cancelado? Se sim, por quem e por qual motivo? <em>Para responder a essa questão, consulte antes o Scrum Guide, que é o guia que documenta a versão oficial de Scrum.</em></p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid cols-3">
+                <div class="mini-card">
+                  <div class="mini-card-title">❓ Pode ser cancelado?</div>
+                  <p><strong>Sim.</strong></p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">👤 Por quem?</div>
+                  <p>Exclusivamente pelo <strong>Product Owner (PO)</strong>.</p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">📌 Por qual motivo?</div>
+                  <p>Quando o Objetivo da Sprint (<em>Sprint Goal</em>) se torna obsoleto (devido a mudanças nas condições de mercado, diretrizes da empresa ou tecnologia).</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q8 -->
+          <article class="question-card" id="c2-q8">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">8</span>
+                <div>
+                  <h3>Exemplo de História de Usuário e Tarefas (Sistema de Delivery de Restaurantes)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Procure pensar em um sistema de uma área da qual tenha algum conhecimento.<br />
+                (a) Escreva então uma história para esse sistema (especificação resumida de funcionalidades, com 2-3 sentenças).<br />
+                (b) Em seguida, quebre a história que definiu em algumas tarefas.<br />
+                (c) Existem dependências entre essas tarefas? Ou elas podem ser implementadas em qualquer ordem?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="story-card" style="border-left-color:var(--cap2);">
+                <strong>(a) História:</strong> "Como cliente faminto, eu gostaria de filtrar os restaurantes disponíveis por tempo estimado de entrega e taxa de frete, para que eu possa escolher uma opção rápida e econômica para o meu almoço."
+              </div>
+              <p><strong>(b) Tarefas:</strong></p>
+              <ol>
+                <li>Criar consulta e endpoint na API REST (<code>GET /restaurantes?tempoMax=X&amp;freteMax=Y</code>) com testes de unidade.</li>
+                <li>Implementar os componentes visuais de filtro (seletores de tempo e frete) no front-end.</li>
+                <li>Integrar o front-end com a API e escrever testes ponta-a-ponta (E2E).</li>
+              </ol>
+              <p>
+                <strong>(c) Dependências:</strong> Sim, existem dependências. A Tarefa 3 (integração) depende da conclusão das Tarefas 1 (back-end) e 2 (front-end). Já as Tarefas 1 e 2 podem ser desenvolvidas em paralelo caso o contrato da API (formato do JSON) seja combinado previamente.
+              </p>
+
+              <div class="diagram-box">
+                <div class="diagram-caption">Grafo de Dependências entre Tarefas</div>
+                <svg viewBox="0 0 560 130" width="560" height="130" role="img" aria-label="Tarefa 1 e Tarefa 2 em paralelo convergindo para a Tarefa 3">
+                  <rect x="16" y="14" width="210" height="42" rx="8" fill="var(--surface)" stroke="var(--cap2)" stroke-width="1.8" />
+                  <text x="121" y="39" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-sans)">Tarefa 1 · API REST + Testes</text>
+
+                  <rect x="16" y="74" width="210" height="42" rx="8" fill="var(--surface)" stroke="var(--cap2)" stroke-width="1.8" />
+                  <text x="121" y="99" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-sans)">Tarefa 2 · Filtros Front-end</text>
+
+                  <path d="M226,35 L322,60" fill="none" stroke="var(--cap2)" stroke-width="2" marker-end="url(#dag-arrow)" />
+                  <path d="M226,95 L322,70" fill="none" stroke="var(--cap2)" stroke-width="2" marker-end="url(#dag-arrow)" />
+
+                  <rect x="330" y="42" width="214" height="46" rx="8" fill="var(--cap2-soft)" stroke="var(--cap2)" stroke-width="2" />
+                  <text x="437" y="69" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-sans)">Tarefa 3 · Integração + E2E</text>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q9 -->
+          <article class="question-card" id="c2-q9">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">9</span>
+                <div>
+                  <h3>Comparação de velocidade entre times distintos (24 vs. 16 pontos)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha dois times, A e B, atuando em projetos diferentes, contratados por empresas distintas, sem conexões entre eles. Porém, ambos os times adotam sprints de 15 dias e ambos possuem 5 desenvolvedores. Nos seus projetos, o time A considera que sua velocidade é de 24 pontos. Já o time B assume uma velocidade de 16 pontos. Pode-se afirmar que A é 50% mais produtivo que B? Justifique sua resposta.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout danger">
+                <span class="callout-title">Não se pode afirmar que o time A é 50% mais produtivo que o time B.</span>
+                Story points são uma medida subjetiva e arbitrária calibrada internamente por cada equipe.
+              </div>
+              <p>
+                O que o time A estima como uma história de 3 pontos pode equivaler exatamente ao mesmo esforço que o time B chama de 2 pontos. Portanto, velocidades medidas em story points nunca devem ser usadas para comparar a produtividade entre equipes diferentes.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q10 -->
+          <article class="question-card" id="c2-q10">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">10</span>
+                <div>
+                  <h3>Principais diferenças entre Scrum e Kanban</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Quais são as principais diferenças entre Scrum e Kanban?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="styled-table-wrap">
+                <table class="styled-table">
+                  <thead>
+                    <tr>
+                      <th>Dimensão</th>
+                      <th>Scrum</th>
+                      <th>Kanban</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Cadência</strong></td>
+                      <td>Trabalha com iterações de tempo fixo (<em>time-boxed Sprints</em>) com planejamento no início e entrega no fim.</td>
+                      <td>Opera em fluxo contínuo, sem Sprints obrigatórias.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Papéis</strong></td>
+                      <td>Define papéis obrigatórios (PO, Scrum Master, Developers).</td>
+                      <td>Não prescreve papéis formais.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Controle de trabalho</strong></td>
+                      <td>Limita o trabalho pela velocidade da Sprint.</td>
+                      <td>Limita o trabalho em andamento por passo do processo (Limites WIP).</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q11 -->
+          <article class="question-card" id="c2-q11">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">11</span>
+                <div>
+                  <h3>Quadro Scrum vs. Quadro Kanban</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Quais são as diferenças entre um Quadro Scrum e um Quadro Kanban?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="board-mockup">
+                  <div class="board-mockup-title">
+                    <span>Quadro Scrum</span>
+                    <span class="q-badge">Reiniciado por Sprint</span>
+                  </div>
+                  <div class="board-cols cols-3">
+                    <div class="board-col">
+                      <div class="board-col-head"><span>To Do</span></div>
+                      <div class="board-ticket"></div>
+                      <div class="board-ticket"></div>
+                    </div>
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Doing</span></div>
+                      <div class="board-ticket accent"></div>
+                    </div>
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Done</span></div>
+                      <div class="board-ticket"></div>
+                    </div>
+                  </div>
+                  <p style="font-size:0.86rem;margin-top:10px;">
+                    Representa apenas as tarefas da Sprint atual (geralmente dividido em To Do, Doing, Done), é reiniciado (esvaziado) ao final de cada Sprint e não possui limites explícitos por coluna.
+                  </p>
+                </div>
+
+                <div class="board-mockup">
+                  <div class="board-mockup-title">
+                    <span>Quadro Kanban</span>
+                    <span class="q-badge">Fluxo Contínuo</span>
+                  </div>
+                  <div class="board-cols cols-4">
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Espec.</span><span class="wip-pill">WIP 2</span></div>
+                      <div class="board-ticket accent"></div>
+                    </div>
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Impl.</span><span class="wip-pill">WIP 3</span></div>
+                      <div class="board-ticket accent"></div>
+                      <div class="board-ticket accent"></div>
+                    </div>
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Rev.</span><span class="wip-pill">WIP 2</span></div>
+                      <div class="board-ticket"></div>
+                    </div>
+                    <div class="board-col">
+                      <div class="board-col-head"><span>Teste</span><span class="wip-pill">WIP 2</span></div>
+                      <div class="board-ticket"></div>
+                    </div>
+                  </div>
+                  <p style="font-size:0.86rem;margin-top:10px;">
+                    É persistente e contínuo (não é zerado), modela os passos específicos do fluxo de valor da equipe (ex: Especificação, Implementação, Revisão, Teste) e exibe um Limite WIP numérico no topo de cada coluna.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q12 -->
+          <article class="question-card" id="c2-q12">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">12</span>
+                <div>
+                  <h3>Erro ao ultrapassar o Limite WIP nas subcolunas</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Qual o erro existe no Quadro Kanban quando um passo com limite WIP é dividido em subcolunas (ex: «Em Execução» e «Pronto/Aguardando») e o somatório das tarefas nelas ultrapassa o limite numérico estipulado?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                Quando um passo no Quadro Kanban é dividido em subcolunas — tipicamente <strong>"Em Execução" (Doing)</strong> e <strong>"Pronto/Aguardando" (Done/Waiting)</strong> —, o Limite WIP vale para a <strong>soma das duas subcolunas</strong>.
+              </p>
+              <p>
+                Se a soma ultrapassa o limite estipulado para aquele passo, houve uma violação da regra fundamental do sistema puxado (<em>pull system</em>): a equipe iniciou novas tarefas sem que o passo seguinte tivesse capacidade para puxar os itens já concluídos, gerando estoque intermediário e ocultando gargalos.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q13 -->
+          <article class="question-card" id="c2-q13">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">13</span>
+                <div>
+                  <h3>Gargalo no Quadro Kanban: desrespeitar WIP ou ajudar na Validação?</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha o seguinte quadro Kanban. Neste momento, o time não consegue trabalhar na especificação de novas histórias, pois o WIP do passo Especificação está sendo totalmente preenchido por itens esperando movimentação para o passo seguinte (Implementação). O que seria mais recomendado neste momento: (a) desrespeitar o WIP e já puxar uma nova história do Backlog para Especificação; ou (b) ajudar o time nas três tarefas em Validação, de forma a desbloquear o fluxo do processo.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout success">
+                <span class="callout-title">Recomendação correta: Alternativa (b) — ajudar o time nas três tarefas em Validação, de forma a desbloquear o fluxo do processo.</span>
+                No Kanban, vige o princípio <strong>"pare de começar e comece a terminar"</strong> (<em>stop starting, start finishing</em>).
+              </div>
+              <p>
+                Desrespeitar o WIP (opção a) apenas acumularia mais trabalho parado antes do gargalo, aumentando o Lead Time. Ao ajudar a concluir os itens em Validação, abre-se espaço em Validação para puxar itens de Implementação, que por sua vez puxará itens de Especificação, restaurando o fluxo.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q14 -->
+          <article class="question-card" id="c2-q14">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">14</span>
+                <div>
+                  <h3>Margem de segurança (+50%) nos limites WIP calculados pela Lei de Little</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Por que se recomenda que os limites WIP calculados usando a Lei de Little sejam incrementados, por exemplo em 50%, de forma a admitir uma margem de erro? Em outras palavras, quais eventos podem originar esses erros na estimativa dos WIPs?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                A Lei de Little (<code>WIP = Lead Time &times; Throughput</code>) baseia-se em valores médios. Na prática do desenvolvimento de software, existe alta variabilidade: histórias têm tamanhos e complexidades ligeiramente diferentes, surgem bloqueios inesperados (indisponibilidade de ambientes, dúvidas com clientes, bugs complexos) e membros da equipe podem se ausentar.
+              </p>
+              <p>
+                Se o WIP for fixado estritamente na média matemática sem margem de folga (como 50%), qualquer oscilação normal deixará desenvolvedores ociosos por falta de permissão para puxar trabalho.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q15 -->
+          <article class="question-card" id="c2-q15">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">15</span>
+                <div>
+                  <h3>Recursos para controle de riscos, fluxo sustentável e qualidade</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Descreva os principais recursos oferecidos por Waterfall, Scrum e Kanban para controlar riscos e garantir um fluxo de trabalho sustentável e que propicie o desenvolvimento de software com qualidade.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid cols-3">
+                <div class="mini-card">
+                  <div class="mini-card-title">🌊 Waterfall</div>
+                  <p>Controla riscos por meio de levantamento exaustivo de requisitos no início, contratos formais, arquitetura planejada antecipadamente e revisões/aprovações rigorosas (<em>stage gates</em>) na transição entre cada fase.</p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">🌀 Scrum</div>
+                  <p>Controla riscos entregando software funcionando em ciclos curtos (Sprints), permitindo inspeção e adaptação constantes em reuniões diárias (Daily Scrum), revisões do produto (Sprint Review) e melhoria contínua do processo (Retrospective), além de proteger o time contra mudanças caóticas durante a Sprint.</p>
+                </div>
+                <div class="mini-card">
+                  <div class="mini-card-title">📋 Kanban</div>
+                  <p>Garante fluxo sustentável e qualidade por meio da visualização explícita do fluxo de trabalho, limites de WIP (que impedem a sobrecarga e o multitasking excessivo, revelando gargalos imediatamente) e monitoramento contínuo de métricas como Lead Time e Throughput.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q16 -->
+          <article class="question-card" id="c2-q16">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">16</span>
+                <div>
+                  <h3>Cálculo do WIP de cada passo pela Lei de Little</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Seja um processo Kanban, dividido em quatro passos. A tabela a seguir informa o <em>lead time</em> de cada um deles e o <em>throughput</em> do passo C, que é o passo mais lento. Com base nesses valores, calcule o WIP de cada passo (última coluna da tabela).</p>
+                <div class="styled-table-wrap" style="margin:8px 0 0;">
+                  <table class="styled-table">
+                    <thead>
+                      <tr><th>Passo</th><th>Lead Time (médio, dias)</th><th>Throughput (tarefas/dia)</th><th>WIP</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>A</td><td>4</td><td>-</td><td>?</td></tr>
+                      <tr><td>B</td><td>3</td><td>-</td><td>?</td></tr>
+                      <tr><td>C</td><td>10</td><td>0,5</td><td>?</td></tr>
+                      <tr><td>D</td><td>5</td><td>-</td><td>?</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                Em um sistema estável em fluxo contínuo, o Throughput médio (<code>TH</code>) de todos os passos se iguala ao Throughput do gargalo (passo mais lento), logo <code>TH = 0,5 tarefas/dia</code>. Pela Lei de Little (<code>WIP = Lead Time &times; Throughput</code>):
+              </p>
+              <div class="formula-grid">
+                <div class="step-calc">
+                  <div class="step-calc-label">Passo A (4 dias)</div>
+                  <div class="step-calc-val">4 &times; 0,5 = <strong>2 tarefas</strong></div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">Passo B (3 dias)</div>
+                  <div class="step-calc-val">3 &times; 0,5 = <strong>1,5</strong> (→ 2 tarefas ou margem)</div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">Passo C (10 dias)</div>
+                  <div class="step-calc-val">10 &times; 0,5 = <strong>5 tarefas</strong></div>
+                </div>
+                <div class="step-calc">
+                  <div class="step-calc-label">Passo D (5 dias)</div>
+                  <div class="step-calc-val">5 &times; 0,5 = <strong>2,5</strong> (→ 3 tarefas na prática)</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q17 -->
+          <article class="question-card" id="c2-q17">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">17</span>
+                <div>
+                  <h3>Curva exponencial de custos de mudanças</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Seja o gráfico que mostra — para um determinado sistema — como os custos de mudanças variam exponencialmente conforme a fase do desenvolvimento em que elas são realizadas.<br />
+                (a) Qual método de desenvolvimento você recomendaria para esse sistema? Justifique sua resposta.<br />
+                (b) Sistemas de quais domínios podem ter uma curva de custos de mudanças semelhante a essa?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(a) Método recomendado</div>
+                  <p><strong>Waterfall (Cascata)</strong> ou processos orientados a planejamento rigoroso (como Processo Unificado/Espiral). Se alterar uma decisão de projeto nas fases finais custa exponencialmente mais caro, é essencial investir pesado em análise de requisitos, arquitetura formal e validação prévia antes de iniciar a codificação em larga escala.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(b) Domínios típicos</div>
+                  <p>Sistemas críticos de missão/segurança (aeroespacial, aviação, defesa, usinas nucleares, equipamentos médicos implantáveis) e sistemas que envolvem fabricação conjunta de hardware dedicado / sistemas embarcados (onde um erro exige recolhimento físico de placas ou veículos).</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q18 -->
+          <article class="question-card" id="c2-q18">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">18</span>
+                <div>
+                  <h3>Frequência de novas releases</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 1 no final do Cap. 2</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>O artigo «<em>Development and Deployment at Facebook</em>» (Feitelson et al., 2013) apresenta os métodos e práticas de desenvolvimento de software usados no Facebook. Na sua primeira seção (páginas 2-3; figura 2), os autores fazem uma distinção entre alguns métodos de desenvolvimento, baseando-se na frequência com que versões de um sistema são liberadas para uso quando se adota cada um deles. Complete a seguinte tabela informando a frequência de releases mencionada no artigo para alguns métodos e políticas de liberação de software: Waterfall, Evolucionário, Ágil, Facebook e Deployment Contínuo.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="release-timeline">
+                <div class="release-step">
+                  <div class="release-step-name">1. Waterfall</div>
+                  <div class="release-step-freq">Meses a anos (ex: 6 meses a 2 anos).</div>
+                </div>
+                <div class="release-step">
+                  <div class="release-step-name">2. Evolucionário</div>
+                  <div class="release-step-freq">Semanas a alguns meses (ex: 1 a 6 meses).</div>
+                </div>
+                <div class="release-step">
+                  <div class="release-step-name">3. Ágil</div>
+                  <div class="release-step-freq">1 a 4 semanas (ao final de cada Sprint/iteração).</div>
+                </div>
+                <div class="release-step">
+                  <div class="release-step-name">4. Facebook (época do artigo)</div>
+                  <div class="release-step-freq">Releases diárias e semanais para web/móvel (push from master 2x/dia ou diariamente em dias úteis).</div>
+                </div>
+                <div class="release-step">
+                  <div class="release-step-name">5. Deployment Contínuo</div>
+                  <div class="release-step-freq">Dezenas ou centenas de vezes por dia (a cada commit que passa nos testes automatizados).</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 2 - Q19 -->
+          <article class="question-card" id="c2-q19">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">19</span>
+                <div>
+                  <h3>Processo Unificado (UP) e Espiral vs. Ágil e Waterfall</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 2 no final do Cap. 2</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Por que métodos como o Processo Unificado (UP) e Espiral não são considerados ágeis? E qual a diferença deles para o Modelo Waterfall?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">Por que não são ágeis</div>
+                  <p>Embora sejam iterativos, o UP e o Modelo Espiral ainda valorizam fortemente planejamento detalhado nas fases iniciais, modelagem extensiva (como diagramas UML completos), documentação formal pesada e papéis hierárquicos bem demarcados, contrastando com a leveza e adaptabilidade do Manifesto Ágil.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">Diferença para o Waterfall</div>
+                  <p>No Waterfall, cada fase (requisitos, projeto, implementação, testes) ocorre uma única vez de forma sequencial, entregando o sistema completo apenas no final. No UP e no Espiral, o desenvolvimento é iterativo e incremental (e orientado a riscos, no caso do Espiral), repetindo pequenos ciclos de requisitos, projeto, código e testes para entregar partes evolutivas do sistema.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             CAPÍTULO 3: REQUISITOS
+             ================================================================ -->
+        <section class="chapter-section" data-chapter="3" id="cap-3">
+          <div class="chapter-banner">
+            <div>
+              <span class="chapter-tag">Capítulo 3</span>
+              <h2>Requisitos</h2>
+            </div>
+            <span class="chapter-count">15 questões</span>
+          </div>
+
+          <!-- Cap 3 - Q1 -->
+          <article class="question-card" id="c3-q1">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">1</span>
+                <div>
+                  <h3>Verdadeiro (V) ou Falso (F)</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">POSCOMP 2010, adaptado</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p><strong>[POSCOMP 2010, adaptado]</strong> Sobre Engenharia de Requisitos, marque Verdadeiro (V) ou Falso (F):</p>
+                <p>( ) A Engenharia de Requisitos, como todas as outras atividades de Engenharia de Software, precisa ser adaptada às necessidades do processo, do projeto, do produto e do pessoal que está fazendo o trabalho.<br />
+                ( ) No estágio de levantamento e análise dos requisitos, os membros da equipe técnica de desenvolvimento do software trabalham com o cliente e os usuários finais do sistema para descobrir mais informações sobre o domínio da aplicação, que serviços o sistema deve oferecer, o desempenho exigido do sistema, as restrições de hardware, dentre outras informações.<br />
+                ( ) Na medida em que a informação de vários pontos de vista é coletada, os requisitos emergentes são consistentes.<br />
+                ( ) A validação de requisitos se ocupa de mostrar que estes realmente definem o sistema que o cliente deseja. Ela é importante porque a ocorrência de erros em um documento de requisitos pode levar a grandes custos relacionados ao retrabalho.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="tf-list">
+                <div class="tf-item">
+                  <span class="tf-badge v">V</span>
+                  <div>A Engenharia de Requisitos, como todas as outras atividades de Engenharia de Software, precisa ser adaptada às necessidades do processo, do projeto, do produto e do pessoal que está fazendo o trabalho.</div>
+                </div>
+                <div class="tf-item">
+                  <span class="tf-badge v">V</span>
+                  <div>No estágio de levantamento e análise dos requisitos, os membros da equipe técnica de desenvolvimento do software trabalham com o cliente e os usuários finais do sistema para descobrir mais informações sobre o domínio da aplicação, que serviços o sistema deve oferecer, o desempenho exigido do sistema, as restrições de hardware, dentre outras informações.</div>
+                </div>
+                <div class="tf-item">
+                  <span class="tf-badge f">F</span>
+                  <div>
+                    Na medida em que a informação de vários pontos de vista é coletada, os requisitos emergentes são consistentes.
+                    <div class="callout danger" style="margin:8px 0 0;padding:8px 12px;font-size:0.86rem;">
+                      <strong>Justificativa:</strong> diferentes stakeholders possuem interesses distintos, gerando requisitos frequentemente conflitantes e inconsistentes que precisam ser negociados.
+                    </div>
+                  </div>
+                </div>
+                <div class="tf-item">
+                  <span class="tf-badge v">V</span>
+                  <div>A validação de requisitos se ocupa de mostrar que estes realmente definem o sistema que o cliente deseja. Ela é importante porque a ocorrência de erros em um documento de requisitos pode levar a grandes custos relacionados ao retrabalho.</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q2 -->
+          <article class="question-card" id="c3-q2">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">2</span>
+                <div>
+                  <h3>Cinco técnicas para elicitação de requisitos</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Cite o nome de pelo menos cinco técnicas para elicitação de requisitos.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <ol>
+                <li>Entrevistas com clientes e usuários.</li>
+                <li>Questionários / Pesquisas (<em>Surveys</em>).</li>
+                <li>Workshops de requisitos (ou sessões JAD — <em>Joint Application Design</em>).</li>
+                <li>Etnografia (Observação direta do usuário em seu ambiente de trabalho).</li>
+                <li>Prototipação (telas/wireframes) e Análise de Cenários.</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q3 -->
+          <article class="question-card" id="c3-q3">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">3</span>
+                <div>
+                  <h3>As três partes de uma história de usuário (3C's)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Quais são as três partes de uma história de usuário? Responda usando o acrônimo 3C's.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>Criado por Ron Jeffries, o acrônimo <strong>3C's</strong> representa:</p>
+              <div class="compare-grid cols-3">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">1. Cartão (Card)</div>
+                  <p>A descrição física ou digital concisa da história (formato <em>"Como [papel], quero [ação], para [benefício]"</em>), suficiente apenas para identificar o requisito.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">2. Conversa (Conversation)</div>
+                  <p>As discussões presenciais e contínuas entre os desenvolvedores e o cliente/Product Owner durante a iteração para detalhar os pormenores da história.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">3. Confirmação (Confirmation)</div>
+                  <p>Os critérios de aceitação e testes que determinam objetivamente quando a história está pronta e correta.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q4 -->
+          <article class="question-card" id="c3-q4">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">4</span>
+                <div>
+                  <h3>Histórias de Usuário para uma Rede Social (estilo Facebook)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha uma rede social como o Facebook.<br />
+                (1) Escreva um conjunto de cinco histórias para essa rede, assumindo o papel de um usuário típico;<br />
+                (2) Pense agora em mais um papel de usuário e escreva pelo menos duas histórias para ele.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="story-role-title">(1) Papel: Usuário Típico</div>
+              <div class="story-card">Como usuário registrado, quero publicar fotos e textos no meu mural, para compartilhar momentos da minha vida com meus amigos.</div>
+              <div class="story-card">Como usuário registrado, quero enviar solicitações de amizade para outras pessoas, para acompanhar as atualizações delas no meu feed.</div>
+              <div class="story-card">Como usuário registrado, quero curtir e comentar nas publicações dos meus amigos, para interagir com o conteúdo que eles postam.</div>
+              <div class="story-card">Como usuário registrado, quero configurar a privacidade das minhas postagens (público, apenas amigos, privado), para controlar quem tem acesso às minhas informações.</div>
+              <div class="story-card">Como usuário registrado, quero buscar usuários pelo nome ou e-mail, para reencontrar conhecidos na plataforma.</div>
+
+              <div class="story-role-title">(2) Papel adicional: Anunciante Comercial (Empresário)</div>
+              <div class="story-card">Como anunciante, quero impulsionar uma publicação segmentando o público por faixa etária e localização geográfica, para divulgar meu produto para potenciais clientes.</div>
+              <div class="story-card">Como anunciante, quero visualizar um painel com métricas de cliques e visualizações dos meus anúncios, para avaliar o retorno sobre o meu investimento publicitário.</div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q5 -->
+          <article class="question-card" id="c3-q5">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">5</span>
+                <div>
+                  <h3>Cinco Anti-patterns para Histórias de Usuários</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Em Engenharia de Software, <em>anti-patterns</em> são soluções não recomendadas para um certo problema. Escreva pelo menos cinco <em>anti-patterns</em> para histórias de usuários. Em outras palavras, descreva formatos de histórias que não são recomendados ou que não possuem propriedades recomendáveis.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <ol>
+                <li><strong>Histórias técnicas (sem valor para o usuário):</strong> Ex: <em>"Como desenvolvedor, quero criar um índice na tabela usuarios do PostgreSQL"</em>. Histórias devem descrever valor de negócio perceptível ao usuário ou cliente.</li>
+                <li><strong>Histórias gigantescas (Épicos levados para a Sprint):</strong> Histórias que levam semanas para serem concluídas e não cabem dentro de uma única iteração.</li>
+                <li><strong>Histórias excessivamente detalhadas (especificações tradicionais disfarçadas):</strong> Textos de várias páginas anexados ao cartão, substituindo a conversa (o segundo "C") por burocracia.</li>
+                <li><strong>Histórias sem critérios de aceitação (sem Confirmação):</strong> Histórias vagas (ex: <em>"O sistema deve ser fácil de usar"</em>) que impossibilitam testar se foram concluídas.</li>
+                <li><strong>Histórias dependentes ou acopladas (violando o princípio INVEST):</strong> Histórias fatiadas horizontalmente por camada técnica (ex: uma história só para o banco de dados e outra só para a tela), que não entregam funcionalidade ponta-a-ponta isoladamente.</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q6 -->
+          <article class="question-card" id="c3-q6">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">6</span>
+                <div>
+                  <h3>Exemplo de História Épica</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Pense em um sistema e escreva uma história épica para o mesmo.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p><strong>Sistema:</strong> Plataforma de Comércio Eletrônico.</p>
+              <div class="story-card">
+                <strong>História Épica:</strong> "Como comprador da loja virtual, quero gerenciar todas as minhas formas de pagamento e realizar o checkout de compras com segurança, para adquirir produtos utilizando cartões de crédito, Pix, boleto bancário ou vale-presente."
+              </div>
+              <p><em>Observação:</em> Esta história é grande demais para uma Sprint e precisará ser dividida em histórias menores para cada meio de pagamento.</p>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q7 -->
+          <article class="question-card" id="c3-q7">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">7</span>
+                <div>
+                  <h3>Significado de Gold Plating</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>No contexto de requisitos, o que significa a expressão <em>gold plating</em>?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                <strong>Gold plating</strong> ("banhar a ouro") ocorre quando a equipe de desenvolvimento adiciona funcionalidades extras, embelezamentos ou otimizações complexas que não foram solicitadas pelo cliente e que não agregam valor real ao negócio, consumindo tempo, orçamento e introduzindo novos riscos de bugs desnecessariamente.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q8 -->
+          <article class="question-card" id="c3-q8">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">8</span>
+                <div>
+                  <h3>Caso de Uso para Sistema de Controle de Bibliotecas</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Escreva um caso de uso para um Sistema de Controle de Bibliotecas (similar ao que usamos para ilustrar a escrita de histórias na Seção 3.3.1).</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="usecase-sheet">
+                <div class="usecase-head">
+                  <span><strong>Caso de Uso:</strong> Renovar Empréstimo de Livro</span>
+                  <span><strong>Ator Principal:</strong> Usuário da Biblioteca (Aluno/Professor)</span>
+                </div>
+                <div class="usecase-body">
+                  <div class="usecase-section-title">Fluxo Normal (Principal)</div>
+                  <ol>
+                    <li>O usuário acessa o sistema e realiza autenticação com matrícula e senha.</li>
+                    <li>O usuário seleciona a opção "Meus Empréstimos Ativos".</li>
+                    <li>O sistema exibe a lista de livros atualmente emprestados ao usuário com as respectivas datas de devolução.</li>
+                    <li>O usuário seleciona o livro desejado e aciona a opção "Renovar Empréstimo".</li>
+                    <li>O sistema verifica que o usuário não possui multas pendentes e que o livro não está reservado por outro leitor.</li>
+                    <li>O sistema estende o prazo de devolução por mais 15 dias e emite o comprovante de renovação.</li>
+                  </ol>
+
+                  <div class="usecase-section-title">Extensões (Fluxos Alternativos / Exceções)</div>
+                  <ul class="ext-list">
+                    <li class="ext-item">
+                      <span class="ext-code">5a.</span> O usuário possui multa pendente na biblioteca:<br />
+                      <code>5a1.</code> O sistema informa o valor da multa e bloqueia a renovação até a quitação.
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">5b.</span> O livro selecionado possui reserva ativa de outro usuário:<br />
+                      <code>5b1.</code> O sistema informa que o exemplar está reservado e impede a renovação, mantendo a data original de devolução.
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">5c.</span> O limite máximo de 3 renovações consecutivas já foi atingido:<br />
+                      <code>5c1.</code> O sistema informa que o exemplar deve ser devolvido presencialmente ao balcão.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q9 -->
+          <article class="question-card" id="c3-q9">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">9</span>
+                <div>
+                  <h3>Extensões para o Caso de Uso "Comprar Livro"</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>O seguinte caso de uso possui apenas o fluxo normal. Escreva então algumas extensões para ele.</p>
+                <div class="callout" style="margin:8px 0 0;">
+                  <strong>Caso de uso: Comprar Livro</strong><br />
+                  <strong>Ator:</strong> Usuário da loja virtual<br />
+                  <strong>Fluxo normal:</strong><br />
+                  1. Usuário pesquisa catálogo de livros<br />
+                  2. Usuário seleciona livros e coloca no carrinho de compra<br />
+                  3. Usuário decide fechar a compra<br />
+                  4. Usuário seleciona endereço de entrega<br />
+                  5. Usuário seleciona tipo de entrega<br />
+                  6. Usuário seleciona modo de pagamento<br />
+                  7. Usuário confirma pedido
+                </div>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="usecase-sheet">
+                <div class="usecase-head">
+                  <span><strong>Extensões (Fluxos Alternativos)</strong> — Comprar Livro</span>
+                </div>
+                <div class="usecase-body">
+                  <ul class="ext-list">
+                    <li class="ext-item">
+                      <span class="ext-code">1a.</span> Livro pesquisado encontra-se esgotado no estoque:<br />
+                      <code>1a1.</code> O sistema exibe a mensagem "Produto Indisponível" e oferece a opção "Avise-me quando chegar".
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">3a.</span> Usuário ainda não está autenticado no sistema ao tentar fechar a compra:<br />
+                      <code>3a1.</code> O sistema solicita login e senha (ou cadastro de nova conta) antes de prosseguir para o passo 4.
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">4a.</span> Usuário deseja entregar em um novo endereço não cadastrado:<br />
+                      <code>4a1.</code> Usuário informa o CEP e dados do novo endereço; sistema valida o CEP e armazena o endereço.
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">6a.</span> Usuário possui um cupom de desconto promocional:<br />
+                      <code>6a1.</code> Usuário insere o código do cupom; o sistema valida a vigência e recalcula o valor total do pedido.
+                    </li>
+                    <li class="ext-item">
+                      <span class="ext-code">7a.</span> Operadora de cartão de crédito recusa a transação no momento da confirmação:<br />
+                      <code>7a1.</code> O sistema notifica a falha na autorização e retorna ao passo 6 para que o usuário escolha outro cartão ou método de pagamento.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q10 -->
+          <article class="question-card" id="c3-q10">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">10</span>
+                <div>
+                  <h3>Sistemas recomendados para cada técnica</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 8 na segunda sequência do Cap. 3</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Para cada técnica de especificação e/ou validação de requisitos a seguir, descreva um sistema no qual o seu uso seria mais recomendado: (1) Histórias de Usuários; (2) Casos de Uso; (3) MVPs.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid cols-3">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(1) Histórias de Usuários</div>
+                  <p>Sistemas comerciais web ou aplicativos móveis desenvolvidos por equipes ágeis com acesso frequente ao Product Owner/cliente (ex: aplicativo de gestão financeira pessoal ou sistema de agendamento de clínicas).</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(2) Casos de Uso</div>
+                  <p>Sistemas corporativos grandes, sistemas com fluxos operacionais repletos de regras de exceção ou projetos terceirizados regidos por contratos formais que exigem documentação detalhada das interações passo a passo (ex: sistema de faturamento hospitalar ou módulo de folha de pagamento governamental).</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(3) MVPs (Produto Mínimo Viável)</div>
+                  <p>Produtos inovadores criados por startups em ambientes de altíssima incerteza de mercado, onde ainda não se sabe se os usuários realmente desejam a solução proposta (ex: uma nova plataforma de aluguel compartilhado de ferramentas entre vizinhos).</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q11 -->
+          <article class="question-card" id="c3-q11">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">11</span>
+                <div>
+                  <h3>Diferença entre MVP e produto da primeira iteração ágil</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 9</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Qual a diferença entre um Produto Mínimo Viável (MVP) e o produto obtido na primeira iteração de um método ágil, como XP ou Scrum?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card info">
+                  <div class="mini-card-title">Produto da 1ª iteração ágil (XP/Scrum)</div>
+                  <p>Parte do pressuposto de que o cliente/PO já conhece o domínio do negócio; o objetivo é entregar as primeiras funcionalidades prioritárias com qualidade de produção para construir o sistema incrementalmente.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">MVP (Produto Mínimo Viável)</div>
+                  <p>Tem como objetivo central o <strong>aprendizado validado</strong> (testar hipóteses de negócio no mercado com o menor esforço possível). Um MVP pode até mesmo não ser um software definitivo (pode ser uma landing page, um vídeo explicativo como fez o Dropbox, ou um processo manual nos bastidores) e pode ser descartado ou totalmente modificado (pivotado) caso a hipótese de negócio se mostre falsa.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q12 -->
+          <article class="question-card" id="c3-q12">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">12</span>
+                <div>
+                  <h3>Cinco tipos de pivôs em startups de software</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 10</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>O artigo «<em>Failures to be celebrated: an analysis of major pivots of software startups</em>» (Bajwa et al.) apresenta uma discussão sobre quase 50 casos reais de pivôs em startups da área de software. Na Seção 2.3, o artigo apresenta uma classificação de dez tipos de pivô comuns nessas startups. Leia essa parte do artigo, liste pelo menos cinco tipos de pivôs e faça uma breve descrição de cada um deles.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>Com base no estudo de Bajwa et al. e na literatura de Lean Startup (Eric Ries):</p>
+              <ol>
+                <li><strong>Zoom-in Pivot:</strong> O que antes era apenas uma única funcionalidade de um produto maior passa a ser o produto inteiro (ex: o Instagram começou como o aplicativo complexo Burbn e pivotou para focar apenas no compartilhamento de fotos com filtros).</li>
+                <li><strong>Zoom-out Pivot:</strong> O produto original se revela insuficiente sozinho e passa a ser apenas uma funcionalidade dentro de um produto muito mais amplo.</li>
+                <li><strong>Customer Need Pivot (Necessidade do Cliente):</strong> A startup descobre que o público-alvo tem um problema mais importante a ser resolvido do que aquele originalmente imaginado, mudando o produto para atender a essa nova necessidade.</li>
+                <li><strong>Customer Segment Pivot (Segmento de Clientes):</strong> O produto é mantido essencialmente igual, mas passa a ser vendido para um público-alvo diferente do planejado inicialmente (ex: de consumidores finais B2C para empresas B2B).</li>
+                <li><strong>Platform / Technology Pivot (Plataforma ou Tecnologia):</strong> Mudança na arquitetura tecnológica usada para entregar a solução ou transformação de um aplicativo específico em uma plataforma aberta para terceiros.</li>
+              </ol>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q13 -->
+          <article class="question-card" id="c3-q13">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">13</span>
+                <div>
+                  <h3>Descrição do MVP da EasyTaxi</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 11</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Quando começou, a EasyTaxi — a empresa brasileira de aplicativos para solicitação de táxis — construiu um MVP que usava um software muito simples e uma parte operacional realizada de forma manual. Pesquise na Internet sobre esse MVP (basta usar as palavras EasyTaxi e MVP) e faça uma descrição do mesmo.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout">
+                <span class="callout-title">MVP Mágico de Oz / Concierge</span>
+                No início da EasyTaxi, não havia aplicativo móvel integrado via GPS nem sistema automatizado de despacho.
+              </div>
+              <p>
+                O MVP consistia apenas em uma página web estática simples com um formulário onde o passageiro digitava seu nome, endereço atual e telefone. Ao clicar em pedir táxi, o formulário enviava um e-mail para os próprios fundadores da startup, que liam a mensagem e ligavam manualmente pelo telefone para uma cooperativa ou taxistas parceiros próximos para enviá-los ao local, validando a demanda pelo serviço antes de construir o aplicativo real.
+              </p>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q14 -->
+          <article class="question-card" id="c3-q14">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">14</span>
+                <div>
+                  <h3>MVP de streaming de músicas em 2008</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 12</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha que estamos em 2008, quando ainda não existia Spotify, e você decidiu criar uma startup para oferecer um serviço de streaming de músicas na Internet. Então, como primeiro passo, você implementou um MVP.<br />
+                (a) Quais seriam as principais funcionalidades desse MVP?<br />
+                (b) Ele seria desenvolvido para qual hardware e sistema operacional?<br />
+                (c) Elabore um rascunho rápido da sua interface com o usuário.<br />
+                (d) Quais métricas você usaria para medir o sucesso/fracasso do MVP?</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                <strong>(1) Principais funcionalidades:</strong> Reprodução imediata (streaming) de um catálogo inicial restrito (ex: 500 músicas licenciadas ou independentes), uma barra de busca simples por nome da música/artista e botões básicos de Play/Pause/Próxima. Sem redes sociais, sem algoritmos de recomendação ou modo offline.
+              </p>
+              <p>
+                <strong>(2) Hardware e Sistema Operacional:</strong> Em 2008, os smartphones (iPhone 3G e primeiros Androids) ainda tinham conexões móveis 3G caras e instáveis. O MVP seria desenvolvido para computadores Desktop/Notebooks (Windows e macOS), rodando diretamente no navegador web (ou cliente desktop leve), aproveitando a banda larga fixa residencial/escritório.
+              </p>
+              <p><strong>(3) Rascunho rápido da interface (Wireframe visual):</strong></p>
+
+              <div class="wireframe-player" role="region" aria-label="Wireframe do MusicStream MVP">
+                <div class="wf-topbar">
+                  <span class="wf-logo">MusicStream MVP</span>
+                  <div class="wf-search">
+                    <div class="wf-search-box">Buscar música ou artista...</div>
+                    <span class="wf-btn">Ir</span>
+                  </div>
+                </div>
+                <div class="wf-list">
+                  <div class="wf-list-title">RESULTADOS / TOP MÚSICAS:</div>
+                  <div class="wf-track playing">
+                    <span>[&gt;] 1. Coldplay - Viva La Vida</span>
+                    <span>(04:02)</span>
+                  </div>
+                  <div class="wf-track">
+                    <span>[&gt;] 2. Radiohead - In Rainbows - Weird Fishes</span>
+                    <span>(05:18)</span>
+                  </div>
+                  <div class="wf-track">
+                    <span>[&gt;] 3. Daft Punk - Harder, Better, Faster, Stronger</span>
+                    <span>(03:44)</span>
+                  </div>
+                  <div class="wf-track">
+                    <span>[&gt;] 4. Amy Winehouse - Back to Black</span>
+                    <span>(04:01)</span>
+                  </div>
+                </div>
+                <div class="wf-controls">
+                  <div class="wf-now">TOCANDO AGORA: Coldplay - Viva La Vida</div>
+                  <div class="wf-bar-row">
+                    <span class="wf-btn">|&lt;&lt;</span>
+                    <span class="wf-btn">PLAY / PAUSE</span>
+                    <span class="wf-btn">&gt;&gt;|</span>
+                    <div class="wf-progress" aria-label="Barra de progresso">
+                      <div class="wf-progress-fill"></div>
+                    </div>
+                    <span>02:15</span>
+                  </div>
+                </div>
+              </div>
+
+              <p><strong>(4) Métricas de sucesso/fracasso:</strong></p>
+              <ul>
+                <li><strong>Taxa de Retenção (Cohort):</strong> Percentual de usuários que voltam a usar o serviço na semana seguinte.</li>
+                <li><strong>Tempo médio de escuta diária por usuário ativo:</strong> Verifica se as pessoas realmente trocam seus arquivos MP3 locais pelo streaming.</li>
+                <li><strong>Latência de início da reprodução (Buffering time):</strong> Métrica técnica crucial para validar se a experiência de streaming sem travamentos é viável.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Cap 3 - Q15 -->
+          <article class="question-card" id="c3-q15">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">15</span>
+                <div>
+                  <h3>Teste A/B em Comércio Eletrônico</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 1 no final do Cap. 3</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Suponha que você seja responsável por um sistema de comércio eletrônico. Suponha que na versão atual desse sistema (versão A) a mensagem do carrinho de compra seja «Adicionar ao Carrinho». Suponha que você pretenda fazer um teste A/B testando a mensagem alternativa «Compre Já», a qual vai corresponder à versão B do teste.<br />
+                (a) Qual seria a métrica usada como taxa de conversão nesse teste?<br />
+                (b) Supondo que no sistema original a taxa de conversão seja de 5% e que você deseja avaliar um ganho de 1% com a mensagem da versão B, qual seria o tamanho da amostra que deveria testar em cada uma das versões? <em>Para responder, use uma calculadora de tamanho de amostras de testes A/B, como aquela citada na Seção 3.6 do livro.</em></p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                <strong>(1) Métrica de taxa de conversão:</strong> Razão entre o número de visitantes que efetivamente clicaram no botão (ou concluíram a compra do item) e o número total de visitantes únicos que visualizaram a página do produto em cada versão:
+              </p>
+              <div class="step-calc" style="display:inline-block;margin-bottom:12px;">
+                <div class="step-calc-val">
+                  Taxa de Conversão =
+                  <span class="frac">
+                    <span class="frac-num">Compras ou Cliques</span>
+                    <span class="frac-den">Visualizações da Página</span>
+                  </span>
+                </div>
+              </div>
+
+              <p><strong>(2) Tamanho da amostra:</strong></p>
+              <div class="callout">
+                <span class="callout-title">Nota sobre a convenção do livro</span>
+                No texto de <em>Engenharia de Software Moderna</em> (Seção de Testes A/B), utilizando uma calculadora estatística padrão de Testes A/B (nível de confiança de 95% / <code>&alpha; = 0,05</code> e poder estatístico de 80% / <code>&beta; = 0,20</code>), há duas interpretações para "ganho de 1%":
+              </div>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">Ganho de 1% Absoluto (5% → 6%)</div>
+                  <p>O tamanho da amostra necessária é de aproximadamente <strong>8.150 a 8.200 visitantes por versão</strong> (cerca de <strong>16.300 no total</strong>).</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">Ganho de 1% Relativo (5% → 5,05%)</div>
+                  <p>A amostra necessária salta para cerca de <strong>3.000.000 (3 milhões) de visitantes por versão</strong>, ilustrando como detectar variações minúsculas exige tráfego massivo.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- ================================================================
+             CAPÍTULO 4: MODELOS
+             ================================================================ -->
+        <section class="chapter-section" data-chapter="4" id="cap-4">
+          <div class="chapter-banner">
+            <div>
+              <span class="chapter-tag">Capítulo 4</span>
+              <h2>Modelos</h2>
+            </div>
+            <span class="chapter-count">8 questões</span>
+          </div>
+
+          <!-- Cap 4 - Q1 -->
+          <article class="question-card" id="c4-q1">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">1</span>
+                <div>
+                  <h3>Os três usos possíveis de UML (segundo Martin Fowler)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Explique e discuta os três usos possíveis de UML:<br />
+                (a) Como blueprint (ou plantas técnicas detalhadas)<br />
+                (b) Como sketches (esboços)<br />
+                (c) Como linguagem de programação.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid cols-3">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(a) Como Blueprint (Plantas técnicas detalhadas)</div>
+                  <p>A UML é usada para especificar o sistema em mínimos detalhes antes da codificação, de modo que o programador apenas traduza os diagramas para código de forma mecânica (comum em processos tradicionais/Waterfall).</p>
+                  <p style="margin-top:8px;"><strong>Discussão:</strong> Costuma gerar alto custo de manutenção da documentação, que rapidamente fica defasada em relação ao código.</p>
+                </div>
+                <div class="mini-card success">
+                  <div class="mini-card-title">(b) Como Sketches (Esboços)</div>
+                  <p>A UML é usada de maneira informal, seletiva e colaborativa (geralmente em quadros brancos) para discutir e comunicar aspectos específicos e complexos da arquitetura entre desenvolvedores.</p>
+                  <p style="margin-top:8px;"><strong>Discussão:</strong> É o modo mais adotado hoje na indústria e em métodos ágeis, pois foca na comunicação rápida sem burocracia.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(c) Como Linguagem de Programação</div>
+                  <p>Os diagramas UML são tão completos e formais que ferramentas CASE geram 100% do código executável automaticamente a partir deles (sem edição manual de código).</p>
+                  <p style="margin-top:8px;"><strong>Discussão:</strong> Na prática, provou-se inviável para a maioria dos sistemas gerais, pois desenhar lógica detalhada em diagramas é menos produtivo do que escrever código textual.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q2 -->
+          <article class="question-card" id="c4-q2">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">2</span>
+                <div>
+                  <h3>Cenários de Engenharia Reversa e Engenharia Avante com Diagramas de Classes</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Descreva cenários de uso de diagramas de classes UML como instrumento dos seguintes tipos de engenharia:<br />
+                (a) Engenharia Reversa<br />
+                (b) Engenharia Avante (<em>Forward Engineering</em>).</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(1) Engenharia Reversa (Código → Diagrama)</div>
+                  <p>Um desenvolvedor recém-contratado precisa dar manutenção em um sistema legado de faturamento com dezenas de classes sem documentação. Ele utiliza uma ferramenta ou desenha manualmente um diagrama de classes a partir do código existente para compreender as relações de herança e dependências entre os módulos.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">(2) Engenharia Avante / Forward Engineering (Diagrama → Código)</div>
+                  <p>Antes de implementar um novo módulo de cálculo de impostos, a equipe se reúne em frente ao quadro branco e desenha o diagrama de classes aplicando o padrão de projeto Strategy para definir as interfaces e classes antes de abrir a IDE para programar.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q3 -->
+          <article class="question-card" id="c4-q3">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">3</span>
+                <div>
+                  <h3>Modelagem de Cenários em Diagramas de Classes UML</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Modele os cenários descritos a seguir usando Diagramas de Classe UML:<br />
+                (a) <code>ContaBancaria</code> possui exatamente um <code>Cliente</code>. Um <code>Cliente</code>, por sua vez, pode ter várias <code>ContaBancaria</code>. Existe navegabilidade em ambos os sentidos.<br />
+                (b) <code>ContaPoupanca</code> e <code>ContaSalario</code> são subclasses de <code>ContaBancaria</code>.<br />
+                (c) No código de <code>ContaBancaria</code> declara-se uma variável local do tipo <code>BancoDados</code>.<br />
+                (d) Um <code>ItemPedido</code> se refere a um único <code>Produto</code> (sem navegabilidade). Um <code>Produto</code> pode ter vários <code>ItemPedido</code> (com navegabilidade).<br />
+                (e) A classe <code>Aluno</code> possui atributos <code>nome</code>, <code>matricula</code>, <code>curso</code> (todos privados); e métodos <code>getCurso()</code> e <code>cancelaMatricula()</code>, ambos públicos.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="diagram-box">
+                <div class="diagram-caption">Representação Visual UML — Itens (a) a (e)</div>
+                <svg viewBox="0 0 760 470" width="760" height="470" role="img" aria-label="Cinco cenários de diagramas de classes UML">
+                  <!-- (a) Associação bidirecional 1 para N -->
+                  <text x="16" y="24" fill="var(--cap4)" font-size="12" font-weight="800" font-family="var(--font-sans)">(a) Associação bidirecional 1 para N</text>
+                  <rect x="16" y="38" width="130" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="81" y="61" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">Cliente</text>
+                  <line x1="148" y1="56" x2="294" y2="56" stroke="var(--text)" stroke-width="1.6" marker-start="url(#uml-arrow-open)" marker-end="url(#uml-arrow-open)" />
+                  <text x="160" y="48" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">1</text>
+                  <text x="276" y="48" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">*</text>
+                  <rect x="296" y="38" width="150" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="371" y="61" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">ContaBancaria</text>
+
+                  <!-- (b) Herança -->
+                  <text x="490" y="24" fill="var(--cap4)" font-size="12" font-weight="800" font-family="var(--font-sans)">(b) Herança (Generalização)</text>
+                  <rect x="555" y="38" width="150" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="630" y="60" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">ContaBancaria</text>
+
+                  <rect x="490" y="118" width="128" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="554" y="140" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">ContaPoupanca</text>
+                  <rect x="632" y="118" width="116" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="690" y="140" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">ContaSalario</text>
+
+                  <line x1="554" y1="118" x2="605" y2="74" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-triangle-hollow)" />
+                  <line x1="690" y1="118" x2="655" y2="74" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-triangle-hollow)" />
+
+                  <!-- (c) Dependência -->
+                  <text x="16" y="130" fill="var(--cap4)" font-size="12" font-weight="800" font-family="var(--font-sans)">(c) Dependência (variável local)</text>
+                  <rect x="16" y="144" width="146" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="89" y="167" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">ContaBancaria</text>
+                  <line x1="162" y1="162" x2="294" y2="162" stroke="var(--text)" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#uml-arrow-open)" />
+                  <rect x="296" y="144" width="140" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="366" y="167" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">BancoDados</text>
+
+                  <!-- (d) Associação unidirecional -->
+                  <text x="16" y="232" fill="var(--cap4)" font-size="12" font-weight="800" font-family="var(--font-sans)">(d) Associação unidirecional (navegabilidade em um sentido)</text>
+                  <rect x="16" y="248" width="130" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="81" y="271" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">Produto</text>
+                  <line x1="146" y1="266" x2="294" y2="266" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-open)" />
+                  <text x="156" y="258" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">1</text>
+                  <text x="276" y="258" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">*</text>
+                  <rect x="296" y="248" width="140" height="36" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                  <text x="366" y="271" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)">ItemPedido</text>
+
+                  <!-- (e) Classe Aluno -->
+                  <text x="490" y="232" fill="var(--cap4)" font-size="12" font-weight="800" font-family="var(--font-sans)">(e) Atributos e Métodos de Aluno</text>
+                  <rect x="490" y="248" width="256" height="190" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <line x1="490" y1="282" x2="746" y2="282" stroke="var(--text)" stroke-width="1.4" />
+                  <line x1="490" y1="364" x2="746" y2="364" stroke="var(--text)" stroke-width="1.4" />
+                  <text x="618" y="270" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="800" font-family="var(--font-mono)">Aluno</text>
+                  <text x="504" y="305" fill="var(--text)" font-size="12.5" font-family="var(--font-mono)">- nome : String</text>
+                  <text x="504" y="327" fill="var(--text)" font-size="12.5" font-family="var(--font-mono)">- matricula : int</text>
+                  <text x="504" y="349" fill="var(--text)" font-size="12.5" font-family="var(--font-mono)">- curso : String</text>
+                  <text x="504" y="390" fill="var(--text)" font-size="12.5" font-family="var(--font-mono)">+ getCurso() : String</text>
+                  <text x="504" y="414" fill="var(--text)" font-size="12.5" font-family="var(--font-mono)">+ cancelaMatricula() : void</text>
+                </svg>
+              </div>
+
+              <ul>
+                <li><strong>(a) Associação bidirecional 1 para N:</strong> <code>[Cliente] "1" &lt;------&gt; "*" [ContaBancaria]</code> (Linha sólida com setas de navegabilidade em ambas as pontas; multiplicidade 1 no lado de Cliente e <code>0..*</code> ou <code>*</code> no lado de ContaBancaria).</li>
+                <li><strong>(b) Herança (Generalização):</strong> <code>[ContaPoupanca] ----|&gt; [ContaBancaria]</code> e <code>[ContaSalario] ----|&gt; [ContaBancaria]</code> (Linhas sólidas partindo das subclasses com seta triangular vazada apontando para a superclasse ContaBancaria).</li>
+                <li><strong>(c) Dependência (variável local):</strong> <code>[ContaBancaria] - - - -&gt; [BancoDados]</code> (Linha tracejada com seta aberta partindo de ContaBancaria e apontando para BancoDados).</li>
+                <li><strong>(d) Associação unidirecional (navegabilidade em um sentido):</strong> <code>[Produto] "1" ------x-----&gt; "*" [ItemPedido]</code> (Linha sólida com seta de navegabilidade apontando apenas para ItemPedido e sem navegabilidade para Produto; multiplicidade 1 em Produto e <code>*</code> em ItemPedido).</li>
+                <li><strong>(e) Atributos e Métodos de Aluno:</strong> Classe <code>Aluno</code> com atributos privados (<code>- nome : String</code>, <code>- matricula : int</code>, <code>- curso : String</code>) e métodos públicos (<code>+ getCurso() : String</code>, <code>+ cancelaMatricula() : void</code>).</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q4 -->
+          <article class="question-card" id="c4-q4">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">4</span>
+                <div>
+                  <h3>Diagrama de Classes: Revista Científica, Edição e Artigo</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">ENADE 2014</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p><strong>(ENADE 2014, Tec. e Análise de Sistemas)</strong> Construa um diagrama de classes para representar as seguintes classes e associações:</p>
+                <ul>
+                  <li>Uma revista científica possui título, ISSN e periodicidade;</li>
+                  <li>Essa revista publica diversas edições com os seguintes atributos: número da edição, volume da edição e data da edição. Importante destacar que cada instância da classe edição relaciona-se única e exclusivamente a uma instância da classe revista científica, não podendo relacionar-se com nenhuma outra;</li>
+                  <li>Um artigo possui título e nome do autor. Um artigo é um conteúdo exclusivo de uma edição. E uma edição obrigatoriamente tem que possuir no mínimo 10 e no máximo 15 artigos.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p>
+                Como as instâncias de <code>Edicao</code> são exclusivas de uma única <code>RevistaCientifica</code> e <code>Artigo</code> é exclusivo de uma <code>Edicao</code> (relação todo-parte forte com exclusividade de ciclo de vida), utiliza-se <strong>Composição</strong> (losango preenchido ♦ no lado do "todo"):
+              </p>
+
+              <div class="diagram-box">
+                <div class="diagram-caption">Diagrama de Classes UML — Composição</div>
+                <svg viewBox="0 0 760 155" width="760" height="155" role="img" aria-label="RevistaCientifica compõe Edicao que compõe Artigo">
+                  <!-- RevistaCientifica -->
+                  <rect x="10" y="20" width="205" height="114" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <line x1="10" y1="52" x2="215" y2="52" stroke="var(--text)" stroke-width="1.4" />
+                  <text x="112" y="41" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="800" font-family="var(--font-mono)">RevistaCientifica</text>
+                  <text x="22" y="75" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- titulo : String</text>
+                  <text x="22" y="96" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- issn : String</text>
+                  <text x="22" y="117" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- periodicidade : String</text>
+
+                  <!-- Relação 1 -->
+                  <line x1="216" y1="77" x2="294" y2="77" stroke="var(--text)" stroke-width="1.6" marker-start="url(#uml-diamond-filled)" marker-end="url(#uml-arrow-open)" />
+                  <text x="224" y="66" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">1</text>
+                  <text x="278" y="66" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">*</text>
+                  <text x="255" y="95" text-anchor="middle" fill="var(--text-soft)" font-size="11" font-family="var(--font-sans)">publica</text>
+
+                  <!-- Edicao -->
+                  <rect x="296" y="20" width="176" height="114" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <line x1="296" y1="52" x2="472" y2="52" stroke="var(--text)" stroke-width="1.4" />
+                  <text x="384" y="41" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="800" font-family="var(--font-mono)">Edicao</text>
+                  <text x="308" y="75" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- numero : int</text>
+                  <text x="308" y="96" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- volume : int</text>
+                  <text x="308" y="117" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- data : Date</text>
+
+                  <!-- Relação 2 -->
+                  <line x1="473" y1="77" x2="558" y2="77" stroke="var(--text)" stroke-width="1.6" marker-start="url(#uml-diamond-filled)" marker-end="url(#uml-arrow-open)" />
+                  <text x="482" y="66" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">1</text>
+                  <text x="515" y="66" fill="var(--text-muted)" font-size="12" font-family="var(--font-mono)">10..15</text>
+                  <text x="515" y="95" text-anchor="middle" fill="var(--text-soft)" font-size="11" font-family="var(--font-sans)">possui</text>
+
+                  <!-- Artigo -->
+                  <rect x="560" y="30" width="188" height="94" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <line x1="560" y1="62" x2="748" y2="62" stroke="var(--text)" stroke-width="1.4" />
+                  <text x="654" y="51" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="800" font-family="var(--font-mono)">Artigo</text>
+                  <text x="572" y="86" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- titulo : String</text>
+                  <text x="572" y="108" fill="var(--text)" font-size="12" font-family="var(--font-mono)">- nomeAutor : String</text>
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q5 -->
+          <article class="question-card" id="c4-q5">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">5</span>
+                <div>
+                  <h3>Diagramas de Classes para os trechos Java (HelloWorldSwing)</h3>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Crie diagramas de classes para os seguintes trechos de código Java:</p>
+                <p><strong>(a)</strong></p>
+                <div class="prompt-code">public class HelloWorldSwing { 
+   public static void main(String[] args) {
+     JFrame frame = new JFrame("Hello world!");
+     frame.setVisible(true);
+   }
+}</div>
+                <p style="margin-top:8px;"><strong>(b)</strong></p>
+                <div class="prompt-code">class HelloWorldSwing extends JFrame {
+   public HelloWorldSwing() {
+     super("Hello world!");
+   }
+   public static void main(String[] args) {
+     HelloWorldSwing frame = new HelloWorldSwing();
+     frame.setVisible(true);
+   }
+}</div>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card">
+                  <div class="mini-card-title">(a) Variável local (<code>JFrame frame = new JFrame(...)</code>)</div>
+                  <p>Existe uma relação de <strong>Dependência</strong> (linha tracejada com seta aberta) de <code>HelloWorldSwing</code> para <code>JFrame</code>.</p>
+                  <div class="diagram-box" style="margin-bottom:0;">
+                    <svg viewBox="0 0 390 110" width="390" height="110" role="img" aria-label="Dependência entre HelloWorldSwing e JFrame">
+                      <rect x="6" y="18" width="180" height="72" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                      <line x1="6" y1="48" x2="186" y2="48" stroke="var(--text)" stroke-width="1.3" />
+                      <text x="96" y="38" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="800" font-family="var(--font-mono)">HelloWorldSwing</text>
+                      <text x="14" y="72" fill="var(--text)" font-size="10.5" font-family="var(--font-mono)">+ main(args: String[]):void</text>
+
+                      <line x1="186" y1="54" x2="246" y2="54" stroke="var(--text)" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+
+                      <rect x="248" y="18" width="136" height="72" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                      <line x1="248" y1="48" x2="384" y2="48" stroke="var(--text)" stroke-width="1.3" />
+                      <text x="316" y="38" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="800" font-family="var(--font-mono)">JFrame</text>
+                      <text x="256" y="72" fill="var(--text)" font-size="11" font-family="var(--font-mono)">+ setVisible(b)</text>
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="mini-card">
+                  <div class="mini-card-title">(b) Uso de <code>extends JFrame</code></div>
+                  <p>Existe uma relação de <strong>Herança / Generalização</strong> (linha sólida com seta triangular vazada) de <code>HelloWorldSwing</code> apontando para a superclasse <code>JFrame</code>.</p>
+                  <div class="diagram-box" style="margin-bottom:0;">
+                    <svg viewBox="0 0 390 110" width="390" height="110" role="img" aria-label="Herança de HelloWorldSwing para JFrame">
+                      <rect x="6" y="14" width="180" height="84" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                      <line x1="6" y1="44" x2="186" y2="44" stroke="var(--text)" stroke-width="1.3" />
+                      <text x="96" y="34" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="800" font-family="var(--font-mono)">HelloWorldSwing</text>
+                      <text x="14" y="64" fill="var(--text)" font-size="10.5" font-family="var(--font-mono)">+ HelloWorldSwing()</text>
+                      <text x="14" y="84" fill="var(--text)" font-size="10.5" font-family="var(--font-mono)">+ main(args: String[]):void</text>
+
+                      <line x1="186" y1="54" x2="246" y2="54" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-triangle-hollow)" />
+
+                      <rect x="248" y="18" width="136" height="72" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.5" />
+                      <line x1="248" y1="48" x2="384" y2="48" stroke="var(--text)" stroke-width="1.3" />
+                      <text x="316" y="38" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="800" font-family="var(--font-mono)">JFrame</text>
+                      <text x="256" y="72" fill="var(--text)" font-size="11" font-family="var(--font-mono)">+ setVisible(b)</text>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q6 -->
+          <article class="question-card" id="c4-q6">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">6</span>
+                <div>
+                  <h3>Diagrama de Sequência (<code>a.m5()</code>)</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 1 após a questão 5 do Cap. 4</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Mostre o diagrama de sequência relativo ao seguinte código. O diagrama deve começar com a seguinte chamada <code>a.m5()</code>:</p>
+                <div class="prompt-code">A a = new A(); // variáveis globais
+B b = new B();
+C c = new C();
+
+class C { 
+   void m1() { ... } 
+}
+
+class B { 
+   void m2() { ... c.m1(); ... this.m3(); ... }
+   void m3() { ... c.m1(); ... }
+   void m4() { ... }
+}
+
+class A { 
+   void m5() { ... b.m2(); ... b.m3(); ... b.m4(); ...  }
+}</div>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <p><strong>Ordem exata de execução a partir de <code>a.m5()</code>:</strong></p>
+              <ol>
+                <li>Ator externo invoca <code>m5()</code> no objeto <code>a:A</code>.</li>
+                <li><code>a:A</code> invoca <code>m2()</code> em <code>b:B</code>.</li>
+                <li>Dentro de <code>m2()</code>, <code>b:B</code> invoca <code>m1()</code> em <code>c:C</code>.</li>
+                <li>Ainda dentro de <code>m2()</code>, <code>b:B</code> faz uma autochamada (<code>this.m3()</code>), que por sua vez invoca <code>m1()</code> em <code>c:C</code>.</li>
+                <li><code>m2()</code> retorna para <code>a:A</code>.</li>
+                <li><code>a:A</code> invoca <code>m3()</code> em <code>b:B</code>, que invoca <code>m1()</code> em <code>c:C</code>.</li>
+                <li><code>a:A</code> invoca <code>m4()</code> em <code>b:B</code>.</li>
+              </ol>
+
+              <div class="diagram-box">
+                <div class="diagram-caption">Diagrama de Sequência UML — Chamada a.m5()</div>
+                <svg viewBox="0 0 640 420" width="640" height="420" role="img" aria-label="Diagrama de sequência UML mostrando chamadas entre a:A, b:B e c:C">
+                  <!-- Caixas dos objetos -->
+                  <rect x="85" y="14" width="90" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="130" y="36" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)" text-decoration="underline">a:A</text>
+
+                  <rect x="295" y="14" width="90" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="340" y="36" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)" text-decoration="underline">b:B</text>
+
+                  <rect x="505" y="14" width="90" height="34" rx="4" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="550" y="36" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-mono)" text-decoration="underline">c:C</text>
+
+                  <!-- Linhas de vida -->
+                  <line x1="130" y1="48" x2="130" y2="404" stroke="var(--text-soft)" stroke-width="1.5" stroke-dasharray="6,5" />
+                  <line x1="340" y1="48" x2="340" y2="404" stroke="var(--text-soft)" stroke-width="1.5" stroke-dasharray="6,5" />
+                  <line x1="550" y1="48" x2="550" y2="404" stroke="var(--text-soft)" stroke-width="1.5" stroke-dasharray="6,5" />
+
+                  <!-- Barras de ativação -->
+                  <rect x="125" y="76" width="10" height="314" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="335" y="106" width="10" height="148" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="341" y="168" width="9" height="58" fill="var(--surface)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="545" y="132" width="10" height="22" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="545" y="192" width="10" height="22" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+
+                  <rect x="335" y="280" width="10" height="58" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="545" y="302" width="10" height="22" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+                  <rect x="335" y="362" width="10" height="24" fill="var(--cap4-soft)" stroke="var(--text)" stroke-width="1.2" />
+
+                  <!-- Mensagem 1: -> m5() -->
+                  <line x1="28" y1="78" x2="123" y2="78" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="74" y="71" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m5()</text>
+
+                  <!-- Mensagem 2: a:A -> b:B m2() -->
+                  <line x1="135" y1="108" x2="333" y2="108" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="235" y="101" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m2()</text>
+
+                  <!-- Mensagem 3: b:B -> c:C m1() -->
+                  <line x1="345" y1="133" x2="543" y2="133" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="445" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m1()</text>
+                  <line x1="545" y1="154" x2="347" y2="154" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+
+                  <!-- Mensagem 4: autochamada this.m3() -->
+                  <path d="M345,168 L392,168 L392,184 L352,184" fill="none" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="398" y="179" fill="var(--text)" font-size="11.5" font-weight="700" font-family="var(--font-mono)">this.m3()</text>
+
+                  <!-- Mensagem 4b: b:B -> c:C m1() -->
+                  <line x1="350" y1="194" x2="543" y2="194" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="445" y="187" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m1()</text>
+                  <line x1="545" y1="214" x2="352" y2="214" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+
+                  <!-- Retorno m2() -->
+                  <line x1="335" y1="252" x2="137" y2="252" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+
+                  <!-- Mensagem 6: a:A -> b:B m3() -->
+                  <line x1="135" y1="282" x2="333" y2="282" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="235" y="275" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m3()</text>
+                  <line x1="345" y1="303" x2="543" y2="303" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="445" y="296" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m1()</text>
+                  <line x1="545" y1="324" x2="347" y2="324" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+                  <line x1="335" y1="338" x2="137" y2="338" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+
+                  <!-- Mensagem 7: a:A -> b:B m4() -->
+                  <line x1="135" y1="364" x2="333" y2="364" stroke="var(--text)" stroke-width="1.6" marker-end="url(#uml-arrow-solid)" />
+                  <text x="235" y="357" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="700" font-family="var(--font-mono)">m4()</text>
+                  <line x1="335" y1="386" x2="137" y2="386" stroke="var(--text-soft)" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#uml-arrow-open)" />
+                </svg>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q7 -->
+          <article class="question-card" id="c4-q7">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">7</span>
+                <div>
+                  <h3>Diferença entre Nodo de Merge e Nodo de Join</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 1 no final do Cap. 4</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Em diagramas de atividades, explique a diferença entre um nodo de <em>merge</em> e um nodo de <em>join</em>.</p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="compare-grid">
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                      <polygon points="12,2 22,12 12,22 2,12" fill="var(--surface)" stroke="var(--cap4)" stroke-width="2.2" />
+                    </svg>
+                    Nodo de Merge (Fusão — Losango)
+                  </div>
+                  <p>Reúne fluxos alternativos (mutuamente exclusivos) que foram separados anteriormente por um nodo de Decisão (<em>Decision</em>). Basta que <strong>um único fluxo de entrada</strong> chegue ao Merge para que a execução prossiga imediatamente.</p>
+                </div>
+                <div class="mini-card accent-left">
+                  <div class="mini-card-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                      <rect x="2" y="9" width="20" height="6" rx="2" fill="var(--text)" />
+                    </svg>
+                    Nodo de Join (Junção/Sincronização — Barra sólida preta)
+                  </div>
+                  <p>Sincroniza fluxos paralelos (concorrentes) que foram iniciados anteriormente por um nodo de Fork (bifurcação). O fluxo só prossegue adiante quando <strong>todos os fluxos de entrada</strong> tiverem alcançado a barra de Join.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Cap 4 - Q8 -->
+          <article class="question-card" id="c4-q8">
+            <header class="question-header">
+              <div class="question-title-wrap">
+                <span class="q-num">8</span>
+                <div>
+                  <h3>Erro ao unir fluxos de uma Decisão com uma barra de Join</h3>
+                  <div class="q-badges">
+                    <span class="q-badge">Numerada como 2 no final do Cap. 4</span>
+                  </div>
+                </div>
+              </div>
+              <button class="toggle-answer-btn" type="button">Ocultar resposta</button>
+            </header>
+            <div class="question-prompt">
+              <span class="prompt-badge">Enunciado</span>
+              <div class="prompt-text">
+                <p>Qual é o erro do seguinte diagrama de atividades? Refaça o diagrama de forma a refletir corretamente a intenção do projetista. <em>(Cenário em que um nodo de Decisão divide o fluxo em dois caminhos exclusivos [Sim/Não] que executam a Atividade A e Atividade B, mas convergem para uma barra sólida de sincronização / Join antes da Atividade Final).</em></p>
+              </div>
+            </div>
+            <div class="question-body">
+              <span class="answer-badge">Resposta Detalhada</span>
+              <div class="callout danger">
+                <span class="callout-title">Qual é o erro: Ocorre um impasse (deadlock / travamento permanente).</span>
+                Como o nodo de Decisão escolhe apenas um dos caminhos possíveis (ex: caminho "Sim" OU caminho "Não"), apenas uma das entradas chegará à barra de Join. Como o Join exige que todas as entradas cheguem para liberar a execução seguinte, o processo ficará bloqueado indefinidamente esperando pelo caminho que não foi tomado.
+              </div>
+              <p><strong>Estrutura corrigida:</strong> Substitui-se a barra de Join por um <strong>nodo de Merge (losango)</strong> antes da atividade final:</p>
+
+              <div class="diagram-box">
+                <div class="diagram-caption">Diagrama de Atividade Corrigido (Decisão + Merge)</div>
+                <svg viewBox="0 0 420 350" width="420" height="350" role="img" aria-label="Diagrama de atividade corrigido com losango de Decisão e losango de Merge">
+                  <!-- Atividade Inicial -->
+                  <rect x="135" y="12" width="150" height="38" rx="18" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="210" y="36" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">Atividade Inicial</text>
+                  <line x1="210" y1="50" x2="210" y2="74" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+
+                  <!-- Decisão -->
+                  <polygon points="210,76 254,106 210,136 166,106" fill="var(--surface)" stroke="var(--text)" stroke-width="1.7" />
+                  <text x="210" y="110" text-anchor="middle" fill="var(--text)" font-size="11.5" font-weight="700" font-family="var(--font-sans)">Decisão?</text>
+
+                  <!-- Ramos Sim / Não -->
+                  <path d="M166,106 L95,106 L95,156" fill="none" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+                  <text x="130" y="98" text-anchor="middle" fill="var(--text-muted)" font-size="11.5" font-weight="700" font-family="var(--font-mono)">[Sim]</text>
+
+                  <path d="M254,106 L325,106 L325,156" fill="none" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+                  <text x="290" y="98" text-anchor="middle" fill="var(--text-muted)" font-size="11.5" font-weight="700" font-family="var(--font-mono)">[Não]</text>
+
+                  <!-- Atividade A e B -->
+                  <rect x="30" y="158" width="130" height="38" rx="18" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="95" y="182" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">Atividade A</text>
+
+                  <rect x="260" y="158" width="130" height="38" rx="18" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="325" y="182" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">Atividade B</text>
+
+                  <!-- Convergência para Merge -->
+                  <path d="M95,196 L95,244 L174,244" fill="none" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+                  <path d="M325,196 L325,244 L246,244" fill="none" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+
+                  <!-- Merge -->
+                  <polygon points="210,218 244,244 210,270 176,244" fill="var(--cap4-soft)" stroke="var(--cap4)" stroke-width="2" />
+                  <text x="210" y="248" text-anchor="middle" fill="var(--text)" font-size="11.5" font-weight="800" font-family="var(--font-sans)">Merge</text>
+                  <text x="260" y="266" fill="var(--cap4)" font-size="10.5" font-weight="700" font-family="var(--font-sans)">← Losango (em vez de Join)</text>
+
+                  <line x1="210" y1="270" x2="210" y2="296" stroke="var(--cap4)" stroke-width="1.8" marker-end="url(#flow-arrow)" />
+
+                  <!-- Atividade Final -->
+                  <rect x="135" y="298" width="150" height="38" rx="18" fill="var(--surface)" stroke="var(--text)" stroke-width="1.6" />
+                  <text x="210" y="322" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="700" font-family="var(--font-sans)">Atividade Final</text>
+                </svg>
+              </div>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <button id="backToTopBtn" class="back-to-top" type="button" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
